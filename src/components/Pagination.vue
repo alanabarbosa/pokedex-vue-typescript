@@ -30,10 +30,10 @@ export default defineComponent({
   emits: ['changePage'],
 
   setup(props, { emit }) {
-    const limit = 50; // Limite de pokémons por página
+    const limit = 50;
 
     const totalPages = computed(() => {
-      return Math.ceil(props.total / limit); // Número total de páginas
+      return Math.ceil(props.total / limit);
     });
 
     const pages = computed(() => {

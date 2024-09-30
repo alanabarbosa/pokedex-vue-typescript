@@ -4,13 +4,18 @@
         :class="pokemon.types[0].type.name">
         <div class="container">
             <div class="pokemon_title">
-                <p>#{{ pokemon.id }}</p>
-                <h2>{{ pokemon.name }} </h2>
+              <PokemonId :style="{ background: pokemon.color}"
+              :id="pokemon.id"></PokemonId>
+                <PokemonTitle :title="pokemon.name"></PokemonTitle>
+                <PokemonType :types="pokemon.type"></PokemonType>
             </div>    
             <div v-if="pokemon.image">
-                <img :src="pokemon.image" alt="Imagem do Pokémon" />
+              <PokemonImage v-if="pokemon.image"
+              :image="pokemon.image"
+              :alt="pokemon.name"></PokemonImage>
             </div> 
         </div>
+        
             <TabNav 
             :tabs="['about', 'stats', 'evolution']"
             :abilities="pokemon.abilities"
@@ -27,11 +32,19 @@
   import { defineComponent, ref, watch } from 'vue';
   import TabNav from '../TabNav.vue';
   import { usePokemonDetails } from '../../composables/usePokemonDetails'; 
-  import { usePokemonEvolution } from '../../composables/usePokemonEvolution';   
+  import { usePokemonEvolution } from '../../composables/usePokemonEvolution'; 
+  import PokemonTitle from '../PokemonTitle.vue';
+  import PokemonType from '../PokemonType.vue';
+  import PokemonId from '../PokemonId.vue';
+  import PokemonImage from '../PokemonImage.vue'   
   
   export default defineComponent({
     components: {
-      TabNav
+      TabNav,
+      PokemonTitle,
+      PokemonType,
+      PokemonId,
+      PokemonImage
     },
     setup() {
       const { pokemon, calculatePercentage } = usePokemonDetails();
@@ -55,6 +68,7 @@
   
   <style scoped lang="scss">
   .pokemon-details {
+    border-radius: 45px;
     .container {
       display: flex;
       justify-content: center;

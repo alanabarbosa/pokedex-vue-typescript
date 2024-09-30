@@ -33,7 +33,7 @@
       Search,
       CardPokemon,
       Pagination,
-      Filters
+      Filters,
     },
     setup() {
       const { pokemons, totalPokemons, types } = usePokemons();

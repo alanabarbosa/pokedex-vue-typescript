@@ -1,8 +1,9 @@
 <template>
-    <section class="slide-top">
+    <section class="slide-top" v-if="pokemon">
       <article :class="pokemon.type[0]?.type.name">
         <div class="pokemon_header">
-          <span :style="{ background: '#b31312' }">#{{ pokemon.id }}</span>
+          <PokemonId :style="{ background: pokemon.color }"
+          :id="pokemon.id"></PokemonId>
           <svg
             width="30px"
             viewBox="0 0 24 24"
@@ -24,14 +25,11 @@
             />
           </svg>
         </div>
-       
-        <h2 v-if="pokemon.name" class="pokemon_name">{{ pokemon.name }}</h2>
-        <div class="types">
-          <p v-for="t in pokemon.type" :key="t.type.name"
-          :class="t.type.name" >{{ t.type.name }}</p>
-        
-        </div>
-        <img v-if="pokemon.image" :src="`${pokemon.image}`" alt="Imagem do Pokémon" />
+        <PokemonTitle :title="pokemon.name"></PokemonTitle>
+        <PokemonType :types="pokemon.type"></PokemonType>
+        <PokemonImage v-if="pokemon.image"
+        :image="pokemon.image"
+        :alt="pokemon.name"></PokemonImage>
         <ButtonLink 
           @click="selectPokemon(pokemon.name)" 
           label="Exibir Detalhes" 
@@ -40,16 +38,27 @@
         />
       </article>
     </section>
+    <section v-else>
+      <p>Não existe pokemon</p>
+    </section>
   </template>
   
   <script lang="ts">
   import { defineComponent } from 'vue';
-  import ButtonLink from '../components/ButtonLink.vue';
+  import ButtonLink from './ButtonLink.vue';
+  import PokemonTitle from './PokemonTitle.vue';
+  import PokemonType from './PokemonType.vue';
+  import PokemonId from './PokemonId.vue';
+  import PokemonImage from './PokemonImage.vue'  
   
   export default defineComponent({
     name: 'CardPokemon',
     components: {
       ButtonLink,
+      PokemonTitle,
+      PokemonType,
+      PokemonId,
+      PokemonImage
     },
     props: {
       pokemon: {
@@ -93,37 +102,5 @@
     cursor: pointer;
   }
   
-  h2 {
-    text-transform: capitalize;
-  }
-
-  .types {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    p {
-      border-radius: 50px;
-      padding: 5px 20px;
-      bordeR: 1px solid #FFF;
-    }
-  }
-  
-  span {
-    border-radius: 10px;
-    width: 20%;
-    padding: 2px;
-  }
-  
-  .slide-left-enter-active, .slide-left-leave-active {
-    transition: transform 0.5s ease;
-  }
-  
-  .slide-left-enter {
-    transform: translateX(-100%);
-  }
-  
-  .slide-left-leave-to  {
-    transform: translateX(100%);
-  }
   </style>
   

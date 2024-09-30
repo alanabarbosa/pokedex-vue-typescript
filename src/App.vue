@@ -62,7 +62,8 @@ export default defineComponent({
     return {
       favoriteCount,
       updateFavoriteCount,
-      handleScroll
+      handleScroll,
+
     };
   }
 });
@@ -81,8 +82,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #fff;
-  background-color: #3498db;
+  background-color: white;
   height: 100vh;
+  padding-bottom: 80px;
 }
 
 @keyframes toTop {
@@ -98,6 +100,8 @@ body {
 
 .slide-top {
     animation: toTop .3s ease normal forwards;
+    margin-top: 50px;
+    border-radius: 45px;
 }
 
 .container {
@@ -106,10 +110,7 @@ body {
   margin: 0 auto;
 }
 
-h2 {
-  text-transform: capitalize;
-  font-size: 20px;
-}
+
 
 p {
   font-size: 18px;
