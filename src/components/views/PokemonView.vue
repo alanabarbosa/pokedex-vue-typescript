@@ -1,15 +1,16 @@
 <template>
   <section v-if="totalPokemons" id="pokemons">
     <div class="container">
-      <Search @update:filteredPokemons="updateFilteredPokemons" />       
-      <Filters :types="uniqueTypes" @filterPokemons="filterByType" />   
+      <Search @update:filteredPokemons="updateFilteredPokemons" @noResults="restorePokemons" />
+
+      <Filters :types="uniqueTypes" @filterPokemons="filterByType" />
 
       <Pagination 
         :pokemonPage="50" 
-        :pokemonsTotal="totalPokemons"
+        :pokemonsTotal="totalPokemons"  
         :currentPage="currentPage"
         @changePage="onPageChange" 
-      />   
+      />
         
       <div v-for="pokemon in paginatedPokemons" :key="pokemon.id">    
         <CardPokemon 
@@ -21,9 +22,6 @@
       </div>
     </div>
   </section>
-  <div v-else>
-      <img src="../../assets/images/loading.svg" alt="">
-  </div>
 </template>
 
 <script lang="ts">
@@ -35,68 +33,94 @@ import Pagination from '../Pagination.vue';
 import Filters from '../Filter.vue';
 
 export default defineComponent({
-components: {
-  Search,
-  CardPokemon,
-  Pagination,
-  Filters,
-},
-setup() {
-  const { pokemons, types, fetchPokemons, totalPokemons } = usePokemons();
-  const favorites = ref<number[]>(JSON.parse(localStorage.getItem("pokemonFavorites") || "[]"));
-  const currentPage = ref(1);
-  const selectedTypes = ref<string[]>([]);
+  components: {
+    Search,
+    CardPokemon,
+    Pagination,
+    Filters,
+  },
+  setup() {
+    const { pokemons, types, fetchPokemons, totalPokemons } = usePokemons();
+    const allPokemons = ref([]); // Inicie como um array vazio
+    const favorites = ref<number[]>(JSON.parse(localStorage.getItem("pokemonFavorites") || "[]"));
+    const currentPage = ref(1);
+    
+    const selectedTypes = ref<string[]>([]);
 
+    const toggleFavorite = (pokemonId: number): void => {
+      if (favorites.value.includes(pokemonId)) {
+        favorites.value = favorites.value.filter(id => id !== pokemonId);
+      } else {
+        favorites.value.push(pokemonId);
+      }
+      localStorage.setItem("pokemonFavorites", JSON.stringify(favorites.value));
+    };
 
-  const toggleFavorite = (pokemonId: number): void => {
-    if (favorites.value.includes(pokemonId)) {
-      favorites.value = favorites.value.filter(id => id !== pokemonId);
-    } else {
-      favorites.value.push(pokemonId);
-    }
-    localStorage.setItem("pokemonFavorites", JSON.stringify(favorites.value));
-  };
+    const isFavorite = (pokemonId: number): boolean => {
+      return favorites.value.includes(pokemonId);
+    };
 
-  const isFavorite = (pokemonId: number): boolean => {
-    return favorites.value.includes(pokemonId);
-  };
+    const selectPokemon = (name: string) => {
+      console.log(`Selecionou o Pokémon: ${name}`);
+    };
 
-  const selectPokemon = (name: string) => {
-    console.log(`Selecionou o Pokémon: ${name}`);
-  };
+    const fetchAllPokemons = async () => {
+      await fetchPokemons(currentPage.value);
+      allPokemons.value = [...pokemons.value]; // Armazena todos os Pokémons
+      totalPokemons.value = allPokemons.value.length; // Atualiza o total
+    };
 
-  const filterByType = (selectedType: string) => {
-    fetchPokemons(currentPage.value, selectedType);
-  };
+    const filterByType = async (selectedType: string) => {
+      currentPage.value = 1; 
+      await fetchPokemons(currentPage.value, selectedType);
+      totalPokemons.value = pokemons.value.length;
+    };
 
-   /*const updateFilteredPokemons = (filtered: any[]) => {
-    currentPage.value = 1;
-  };  */
+    const updateFilteredPokemons = (filteredPokemons: any[]) => {
+      if (filteredPokemons.length === 0) {
+        // Se não houver resultados, faça uma nova requisição para restaurar a lista de Pokémons
+        console.log("Nenhum Pokémon encontrado, fazendo nova requisição...");
+        fetchAllPokemons(); // Requisição para obter todos os Pokémons
+      } else {
+        pokemons.value = filteredPokemons;
+      }
+      totalPokemons.value = pokemons.value.length;
+    };
 
-  const uniqueTypes = computed(() => types.value);
+    const restorePokemons = () => {
+      pokemons.value = [...allPokemons.value];
+      totalPokemons.value = allPokemons.value.length; 
+    };
 
-  const onPageChange = (page: number) => {
-    currentPage.value = page;
-    fetchPokemons(page);
-  };
+    const uniqueTypes = computed(() => types.value);
 
-  const paginatedPokemons = computed(() => {
-    return pokemons.value;
-  });
+    const onPageChange = (page: number) => {
+      currentPage.value = page;
+      fetchPokemons(page); // Atualiza os Pokémons para a nova página
+    };
 
-  return {
-    selectPokemon,
-   // updateFilteredPokemons,
-    filterByType,
-    toggleFavorite,
-    isFavorite,
-    currentPage,
-    onPageChange,
-    uniqueTypes,
-    paginatedPokemons,
-    totalPokemons
-  };
-},
+    const paginatedPokemons = computed(() => {
+      return pokemons.value;
+    });
+
+    // Buscar todos os Pokémons na montagem do componente
+    fetchAllPokemons();
+
+    return {
+      selectPokemon,
+      updateFilteredPokemons,
+      restorePokemons,
+      filterByType,
+      toggleFavorite,
+      isFavorite,
+      currentPage,
+      onPageChange,
+      uniqueTypes,
+      paginatedPokemons,
+      totalPokemons,
+      allPokemons,
+    };
+  },
 });
 </script>
 

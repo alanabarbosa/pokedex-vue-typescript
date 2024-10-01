@@ -18,6 +18,7 @@
     h1 {
         font-size: 26px;
         text-transform: capitalize;
+        color: #FFF;
     }
   </style>
   
