@@ -2,9 +2,12 @@
   <section class="filters">
     <select @change="handleSelect" v-model="selectedType">
       <option value="" hidden>Filter By Type</option>
-      <option v-for="(type, index) in types" :key="index" :value="type.name">{{ type.name }}</option>
+      <option v-for="(type, index) in types" 
+        :key="index" :value="type.name">
+        {{ type.name }}
+      </option>
     </select>
-    <button @click="removeFilter" class="button-link">
+    <button v-if="selectedType" @click="removeFilter" class="button-link">
       Limpar Filtros
     </button>
   </section>

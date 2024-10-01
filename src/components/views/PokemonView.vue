@@ -1,19 +1,15 @@
 <template>
   <section v-if="totalPokemons" id="pokemons">
     <div class="container">
-      <Search @update:filteredPokemons="updateFilteredPokemons" />       
-
-   
-      <Filters :types="uniqueTypes" @filterPokemons="filterByType" />
-
+      <Search @update:filteredPokemons="updateFilteredPokemons" />   
+      <Filters :types="uniqueTypes" @filterPokemons="filterByType" /> 
       <Pagination 
         :pokemonPage="50" 
         :pokemonsTotal="totalPokemons"  
         :currentPage="currentPage"
         @changePage="onPageChange" 
-      />
-        
-      <div v-for="pokemon in paginatedPokemons" :key="pokemon.id">    
+      />        
+      <div v-for="pokemon in paginatedPokemons" :key="pokemon.id">  
         <CardPokemon 
           :pokemon="pokemon" 
           :toggleFavorite="toggleFavorite" 
@@ -43,10 +39,10 @@ export default defineComponent({
   setup() {
     const { pokemons, types, fetchPokemons, totalPokemons } = usePokemons();
     const filteredPokemons = ref(pokemons.value);
-
     const favorites = ref<number[]>(JSON.parse(localStorage.getItem("pokemonFavorites") || "[]"));
     const currentPage = ref(1);    
     const selectedTypes = ref<string[]>([]);
+    const isFiltering = ref(false);
 
     const toggleFavorite = (pokemonId: number): void => {
       if (favorites.value.includes(pokemonId)) {
@@ -65,10 +61,14 @@ export default defineComponent({
       console.log(`Selecionou o Pokémon: ${name}`);
     };
 
-    const filterByType = async (selectedType: string) => {
+    const filterByType = async (selectedType: string) => {     
       currentPage.value = 1; 
-      await fetchPokemons(currentPage.value, selectedType);
-      totalPokemons.value = pokemons.value.length;
+      isFiltering.value = true;
+      selectedTypes.value = [selectedType];
+      await fetchPokemons(currentPage.value, selectedType);      
+      
+      filteredPokemons.value = pokemons.value;
+      console.log(filteredPokemons.value);
     };
 
     const updateFilteredPokemons = (filtered: any[]) => {
@@ -76,27 +76,30 @@ export default defineComponent({
     };
 
     const filteredPokemonsComputed = computed(() => {
-      // Filtra os Pokémons com base no tipo selecionado
       if (selectedTypes.value.length > 0) {
         return pokemons.value.filter(pokemon =>
           pokemon.type.some(t => selectedTypes.value.includes(t.type.name))
         );
       }
       return filteredPokemons.value.length ? filteredPokemons.value : pokemons.value;
-    });    
+    }); 
+    
+    const filteredPokemonsCount = computed(() => filteredPokemonsComputed.value.length);
 
     const uniqueTypes = computed(() => types.value);
 
-    const onPageChange = (page: number) => {
+    const onPageChange = async (page: number) => {
       currentPage.value = page;
-      const selectedType = selectedTypes.value.length ? selectedTypes.value[0] : null;
-      fetchPokemons(page, selectedType);
-    }
+      
+      if (isFiltering.value && selectedTypes.value.length > 0) {
+        console.log('Tipos filtrados:', selectedTypes.value);
+        await fetchPokemons(currentPage.value, selectedTypes.value.join(','));
+      } else {
+        await fetchPokemons(currentPage.value);  
+      }
+    };
 
     const paginatedPokemons = computed(() => {
-      const startIndex = (currentPage.value - 1) * 50;
-      const endIndex = startIndex + 50;
-      //return filteredPokemonsComputed.value.slice(startIndex, endIndex);
       return filteredPokemonsComputed.value ? filteredPokemonsComputed.value : pokemons.value;
     });
 
@@ -112,7 +115,10 @@ export default defineComponent({
       paginatedPokemons,
       totalPokemons,
       //allPokemons,
-      filteredPokemonsComputed
+      filteredPokemonsComputed,
+      isFiltering,
+      filteredPokemonsCount,
+      filteredPokemons
     };
   },
 });
