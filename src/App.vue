@@ -1,9 +1,11 @@
 <template>
   <div id="app">
     <Nav :favoriteCount="favoriteCount" />
-    <div class="container">
-      <router-view />
-    </div>
+    <main>
+      <div class="container">
+        <router-view />
+      </div>
+    </main>
   </div>
 </template>
 
@@ -74,7 +76,13 @@ export default defineComponent({
 body {
   margin: 0;
   padding: 0;
+  
 }
+
+body {
+  background-color: #161853;
+}
+
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -82,24 +90,46 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #fff;
-  background-color: white;
-  height: 100vh;
+  background-color: #161853;
   padding-bottom: 80px;
+  height: 100vh;
 }
 
 @keyframes toTop {
     0% {
-        transform: translateY(-20%);
+      opacity: 0;
+      transform: translate3d(0px, -32px, 0px);
     }
     100% {
-        transform: translateX(0);
+      opacity: 1;
+      transform: initial;
     }
 }
 
-
+.button-link {
+  .button-link {
+    display: inline-block;
+    padding: 10px 20px;
+    text-align: center;
+    background-color: #b31312;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+  }
+  
+  .button-link:hover {
+    background-color: #a31212;
+  }
+  
+  .button-link:active {
+    background-color: #a31212;
+  }
+}
 
 .slide-top {
-    animation: toTop .3s ease normal forwards;
+    animation: toTop 0.8s ease 0s 1 normal none running;
     margin-top: 50px;
     border-radius: 45px;
 }
@@ -109,8 +139,6 @@ body {
   max-width: 1160px;
   margin: 0 auto;
 }
-
-
 
 p {
   font-size: 18px;
@@ -131,31 +159,35 @@ li {
 
 // Tipos de Pokémon
 $colors: (
-  normal: #a8a878,
-  fire: #f08030,
-  water: #6890f0,
-  electric: #f8d030,
-  grass: #78c850,
-  ice: #98d8d8,
-  ground: #e0c068,
-  flying: #a890f0,
-  ghost: #705898,
-  rock: #b8a038,
-  fighting: #c03028,
-  poison: #a040a0,
-  psychic: #f85888,
-  bug: #a8b820,
-  dark: #705848,
-  steel: #b8b8d0,
-  dragon: #7038f8,
+  normal: rgba(168, 168, 120),
+  fire: rgba(240, 128, 48),
+  water: rgba(104, 144, 240),
+  electric: rgba(248, 208, 48),
+  grass: rgba(120, 200, 80),
+  ice: rgba(152, 216, 216),
+  ground: rgba(224, 192, 104),
+  flying: rgba(168, 144, 240),
+  ghost: rgba(112, 88, 152),
+  rock: rgba(184, 160, 56),
+  fighting: rgba(192, 48, 40),
+  poison: rgba(160, 64, 160),
+  psychic: rgba(248, 88, 136),
+  bug: rgba(168, 184, 32),
+  dark: rgba(112, 88, 72),
+  steel: rgba(184, 184, 208),
+  dragon: rgba(112, 56, 248),
 );
+
 
 // Gera as classes de tipo de Pokémon
 @each $type, $color in $colors {
   .#{$type} {
     background-color: $color;
-    box-shadow: 0 0 20px $color;
-    color: #fff;
+    //box-shadow: 0 8px 32px 0 $color;
+   // backdrop-filter: blur( 7px );
+   // -webkit-backdrop-filter: blur( 7px );
+    color: $color !important;
+    
   }
 }
 nav {

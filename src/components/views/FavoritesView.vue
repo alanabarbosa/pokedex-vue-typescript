@@ -1,9 +1,9 @@
 <template>
-  <section id="favorites">
+  <section id="favorites" v-if="favoritePokemons">
     <div class="container">
-      <h1>Meus Favoritos</h1>
+      <PokemonTitle title="Meus Favoritos"></PokemonTitle>
       <div v-if="favoritePokemons.length === 0" class="no_content">
-        <p>Não existem pokémons salvos</p>
+        <Text text="Não existem pokémons salvos"></Text>
       </div>
       <div v-for="pokemon in favoritePokemons" :key="pokemon.id">
         <CardPokemon 
@@ -15,25 +15,26 @@
       </div>
     </div>
   </section>
+  <div v-else>
+      <img src="../../assets/images/loading.svg" alt="">
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from 'vue';
-import { usePokemons } from '../../composables/usePokemon';
+import { defineComponent } from 'vue';
+import { usePokemonFavorites } from '../../composables/usePokemonFavorites';
 import CardPokemon from '../CardPokemon.vue';
+import PokemonTitle from '../PokemonTitle.vue';
+import Text from '../PokemonText.vue';
 
 export default defineComponent({
   components: {
-    CardPokemon
+    CardPokemon,
+    PokemonTitle,
+    Text
   },
   setup() {
-    const { pokemons } = usePokemons();
-    const favorites = ref<number[]>(JSON.parse(localStorage.getItem("pokemonFavorites") || "[]"));
-
-    // Filtra os pokémons favoritos
-    const favoritePokemons = computed(() => {
-      return pokemons.value.filter(pokemon => favorites.value.includes(pokemon.id));
-    });
+    const { favoritePokemons, favorites } = usePokemonFavorites(); 
 
     const toggleFavorite = (pokemonId: number): void => {
       if (favorites.value.includes(pokemonId)) {
@@ -62,12 +63,17 @@ export default defineComponent({
 });
 </script>
 
+
 <style scoped lang="scss">
 #favorites {
   .container {
     gap: 20px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    h1,
+    p {
+      color: #fff;
+    }
     h1,
     .no_content {
       grid-column: 1 / -1;

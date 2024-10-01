@@ -1,4 +1,4 @@
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import axios from 'axios';
 
 interface Pokemon {
@@ -7,7 +7,8 @@ interface Pokemon {
   image: string;
   type: { type: { name: string } }[];
   color?: string;
-  total: number
+  total: number;
+  count: number;
 }
 
 interface Type {
@@ -17,21 +18,21 @@ interface Type {
 
 export function usePokemons() {
   const pokemons = ref<Pokemon[]>([]);
-  const allPokemons = ref<Pokemon[]>([]);
-  const totalPokemons = ref(0); 
-  const types = ref<Type[]>([]); 
+  const totalPokemons = ref(0);
+  const types = ref<Type[]>([]);
+  const currentPage = ref(1);
+  const limit = 50;
+  const selectedTypes = ref<string[]>([]);
 
-  const fetchAllPokemons = async () => {
+  const fetchPokemons = async (page = 1, selectedType: string | null = null) => {
     try {
-      let nextUrl = 'https://pokeapi.co/api/v2/pokemon?limit=50';
-      while (nextUrl) {
-        const response = await axios.get(nextUrl);
-        totalPokemons.value = response.data.count;
-
+      if (selectedType) {
+        // Buscar Pokémons pelo tipo selecionado
+        const response = await axios.get(`https://pokeapi.co/api/v2/type/${selectedType}`);
         const pokemonsData = await Promise.all(
-          response.data.results.map(async (pokemon: { name: string; url: string }) => {
+          response.data.pokemon.map(async (pokemonData: { pokemon: { name: string; url: string } }) => {
+            const pokemon = pokemonData.pokemon;
             const detailsResponse = await axios.get(pokemon.url);
-
             const speciesUrl = detailsResponse.data.species.url;
             const speciesResponse = await axios.get(speciesUrl);
             const color = speciesResponse.data.color.name;
@@ -39,58 +40,63 @@ export function usePokemons() {
             return {
               name: pokemon.name,
               id: detailsResponse.data.id,
-              total: totalPokemons.value,
               image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${detailsResponse.data.id}.png`,
               type: detailsResponse.data.types,
-              color: color
+              color: color,
+            };
+          })
+        );
+        pokemons.value = pokemonsData;
+      } else {
+        // Busca padrão por página
+        const offset = (page - 1) * limit;
+        const response = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`);
+        totalPokemons.value = response.data.count;
+
+        const pokemonsData = await Promise.all(
+          response.data.results.map(async (pokemon: { name: string; url: string }) => {
+            const detailsResponse = await axios.get(pokemon.url);
+            const speciesUrl = detailsResponse.data.species.url;
+            const speciesResponse = await axios.get(speciesUrl);
+            const color = speciesResponse.data.color.name;
+
+            return {
+              name: pokemon.name,
+              id: detailsResponse.data.id,
+              image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${detailsResponse.data.id}.png`,
+              type: detailsResponse.data.types,
+              color: color,
             };
           })
         );
 
-        allPokemons.value.push(...pokemonsData);
-        nextUrl = response.data.next;
+        pokemons.value = pokemonsData;
       }
-
-      //await getSpecies();
     } catch (error) {
-      console.error('Erro ao buscar todos os Pokémons:', error);
+      console.error('Erro ao buscar os Pokémons:', error);
     }
   };
-
- /* const getSpecies = async () => {
-    for (const pokemon of allPokemons.value) {
-      if (pokemon) {
-        try {
-          const response = await axios.get(`https://pokeapi.co/api/v2/pokemon-species?limit=100/${pokemon.id}/`);
-          if (response.data) pokemon.color = response.data.color.name;
-          console.log(pokemon)
-        } catch (error) {
-          console.error(`Erro ao carregar a espécie do Pokémon ID ${pokemon.id}:`, error);
-          // Continuar carregando os demais Pokémons mesmo em caso de erro
-        }
-      }
-    }
-  };*/
 
   const fetchPokemonTypes = async () => {
     try {
       const response = await axios.get('https://pokeapi.co/api/v2/type/');
-      types.value = response.data.results;
+      types.value = response.data.results.filter((item) => item.name !== 'unknown' && item.name !== 'stellar');
     } catch (error) {
       console.error('Erro ao buscar tipos de Pokémon:', error);
     }
   };
 
   onMounted(() => {
-    fetchAllPokemons();
+    fetchPokemons(currentPage.value);
     fetchPokemonTypes();
   });
 
   return {
-    pokemons: allPokemons,
+    pokemons,
     totalPokemons,
-    fetchPokemonTypes,
-    types
+    fetchPokemons,
+    currentPage,
+    types,
+    selectedTypes
   };
 }
-

@@ -1,6 +1,6 @@
 <template>
-    <section class="slide-top">
-        <div class="pokemon-details" v-if="pokemon" 
+    <section class="slide-top"  v-if="pokemon">
+        <div class="pokemon-details" 
         :class="pokemon.types[0].type.name">
         <div class="container">
             <div class="pokemon_title">
@@ -14,9 +14,9 @@
               :image="pokemon.image"
               :alt="pokemon.name"></PokemonImage>
             </div> 
-        </div>
-        
+        </div>        
             <TabNav 
+            :color="pokemon.types[0].type.name"
             :tabs="['about', 'stats', 'evolution']"
             :abilities="pokemon.abilities"
             :height="pokemon.height"
@@ -27,6 +27,9 @@
             />
         </div>
     </section>
+    <div v-else>
+      <img src="../../assets/images/loading.svg" alt="">
+  </div>
   </template>
   <script lang="ts">
   import { defineComponent, ref, watch } from 'vue';
@@ -84,11 +87,13 @@
       img {
         width: 300px;
       }
-      h2 {
+      h1 {
         grid-column: 1 / -1;
-        font-size: 35px;
         padding: 20px 0;
         color: #000
+      }
+      span {
+        color: #FFF
       }
       .grid-1 {
         display: flex;
@@ -104,20 +109,6 @@
         .info {
           display: flex;
           gap: 20px;
-        }
-  
-        .stat-bar {
-          width: 100%;
-          background-color: #e0e0e0;
-          height: 10px;
-          margin: 5px 0;
-          border-radius: 5px;
-          overflow: hidden;
-  
-          .stat-bar-inner {
-            height: 100%;
-            transition: width 0.3s ease-in-out;
-          }
         }
       }
     }

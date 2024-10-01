@@ -6,29 +6,30 @@
           v-for="(tab, index) in tabs"
           :key="index"
           @click="selectedTab = index"
-          :class="{ active: selectedTab === index }"
+          :class="[{ active: selectedTab === index }, colorClass]"
         >
           {{ tab }}
         </button>
-      </div>
+      </div>   
 
       <div class="tab-content">
         <About v-if="selectedTab === 0" 
-        :abilities="abilities" 
-        :height="height" 
-        :weight="weight" 
-        :types="types" />
+          :abilities="abilities" 
+          :height="height" 
+          :weight="weight" 
+          :types="types" />
         <Stats v-else-if="selectedTab === 1" 
-        :stats="stats" />
+          :stats="stats" />
         <Evolution v-else-if="selectedTab === 2" 
-        :evolution="evolution" />
+          :evolution="evolution" />
       </div>
     </div>
   </div>
 </template>
 
+
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref, computed } from 'vue';
 import About from './About.vue';
 import Stats from './Stats.vue';
 import Evolution from './Evolution.vue';
@@ -43,6 +44,10 @@ export default defineComponent({
     tabs: {
       type: Array as () => string[],
       required: true,
+    },
+    color: {
+      type: String,
+      required: false,
     },
     abilities: {
       type: Array as () => Array<{ ability: { name: string } }>,
@@ -82,38 +87,31 @@ export default defineComponent({
       default: null,
     },
   },
-  setup() {
+  setup(props) {
     const selectedTab = ref(0);
+
+    const colorClass = computed(() => {
+      return props.color ? props.color : '';
+    });
+
     return {
       selectedTab,
+      colorClass,
     };
   },
 });
 </script>
-  
+
+
 <style lang="scss">
 .tab-nav {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: #fff;
+  background: #FFF;
   border-radius: 45px;
   padding: 20px 0 80px 0;
-  p,
-  span {
-    text-transform: capitalize
-  }
-  p {
-      text-transform: capitalize;
-      line-height: 39px;
-  }
-  span {
-      border-radius: 3px;
-      text-transform: capitalize;
-      font-size: 18px;
-      padding: 5px 10px;
-      line-height: 39px;
-  }
+
   .tab-buttons {
     display: flex;
     gap: 20px;
@@ -132,15 +130,15 @@ export default defineComponent({
       font-weight: 700;
       background: none;
       opacity: 0.2;
+      box-shadow: none !important;
 
       &.active {
-        color: blue;
         opacity: 1;
+        background: none !important;
+        box-shadow: none !important;
+        backdrop-filter: none !important;
       }
     }
   }
-
 }
 </style>
-  
-  

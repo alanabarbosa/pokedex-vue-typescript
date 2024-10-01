@@ -47,12 +47,14 @@
     border-radius: 5px;
     background-color: #f9f9f9; 
     grid-column: 1 / -1;
+    border: 1px solid #b31312
   }
   
   input {
     flex: 1;
     border: none;
     width: 100%;
+    background: none;
     
     &:focus {
       border-color: #007bff;

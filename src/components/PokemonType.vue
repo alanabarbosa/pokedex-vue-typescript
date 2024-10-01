@@ -29,6 +29,7 @@ export default defineComponent({
         border-radius: 50px;
         padding: 5px 20px;
         border: 1px solid #FFF;
+        color: #FFF !important;
     }
 }
 </style>

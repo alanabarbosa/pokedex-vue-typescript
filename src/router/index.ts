@@ -1,25 +1,22 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
-import Pokemon from '../components/views/PokemonView.vue';
-import PokemonList from '../components/views/PokemonList.vue';
-import Favorites from '../components/views/FavoritesView.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'pokemon',
-    component: Pokemon,
+    component: () => import('../components/views/PokemonView.vue'), // Lazy loading
   },
   {
     path: '/pokemon/:name',
     name: 'pokemonList',
-    component: PokemonList,
-    props: true, 
+    component: () => import('../components/views/PokemonList.vue'), // Lazy loading
+    props: true,
   },
   {
     path: '/favorites',
     name: 'Favorites',
-    component: Favorites
-  }  
+    component: () => import('../components/views/FavoritesView.vue'), // Lazy loading
+  }
 ];
 
 const router = createRouter({

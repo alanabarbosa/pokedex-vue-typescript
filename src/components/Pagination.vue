@@ -1,28 +1,32 @@
 <template>
-    <section class="pagination">
-        <ul>
-            <li v-for="pag in pages" :key="pag">
-                <button 
-                    :class="{ active: pag === page }" 
-                    @click="goToPage(pag)"
-                >
-                    {{ pag }}
-                </button>
-            </li>
-        </ul>
-    </section>
+  <section class="pagination">
+    <ul>
+      <li v-for="pag in visiblePages" :key="pag">
+        <button
+          :class="{ active: pag === currentPage }"
+          @click="goToPage(pag)"
+        >
+          {{ pag }}
+        </button>
+      </li>
+    </ul>
+  </section>
 </template>
-  
+
 <script lang="ts">
 import { defineComponent, computed } from 'vue';
 
 export default defineComponent({
   props: {
-    total: {
+    pokemonsTotal: {
       type: Number,
       required: true
     },
-    page: {
+    pokemonPage: {
+      type: Number,
+      required: true
+    },
+    currentPage: {
       type: Number,
       required: true
     }
@@ -30,27 +34,20 @@ export default defineComponent({
   emits: ['changePage'],
 
   setup(props, { emit }) {
-    const limit = 50;
-
     const totalPages = computed(() => {
-      return Math.ceil(props.total / limit);
+      const total = props.pokemonsTotal / props.pokemonPage;
+      return total !== Infinity ? Math.ceil(total) : 0;
     });
 
-    const pages = computed(() => {
-      const current = props.page;
-      const range = 9;
-      const offset = Math.floor(range / 2);
-      const pagesArray = [];
+    const visiblePages = computed(() => {
+      const pages = [];
+      const startPage = Math.max(1, props.currentPage - 4);
+      const endPage = Math.min(totalPages.value, startPage + 8);
 
-  
-      const start = Math.max(1, current - offset);
-      const end = Math.min(totalPages.value, start + range - 1);
-
-      for (let i = start; i <= end; i++) {
-        pagesArray.push(i);
+      for (let i = startPage; i <= endPage; i++) {
+        pages.push(i);
       }
-
-      return pagesArray;
+      return pages;
     });
 
     const goToPage = (pageNumber: number) => {
@@ -58,7 +55,7 @@ export default defineComponent({
     };
 
     return {
-      pages,
+      visiblePages,
       goToPage,
       totalPages
     };
@@ -88,12 +85,12 @@ export default defineComponent({
             cursor: pointer;
 
             &:hover {
-                background-color: #a31212
+                background-color: #a31212;
             }
 
             &.active {
                 background-color: #8b0000;
-                font-weight: bold; /* Para destacar o botão ativo */
+                font-weight: bold;
             }
         }
     }

@@ -1,8 +1,8 @@
 <!-- Stats.vue -->
 <template>
     <section v-for="(stat, index) in stats" :key="index" class="stats">
-      <p><strong>{{ stat.stat.name }}: </strong></p>
-      <p>{{ stat.base_stat }}%</p>
+      <Text class="stat_name" :text="stat.stat.name"></Text>
+      <Text :text="`${stat.base_stat}%`"></Text>
       <div class="stat-bar-box">
         <div class="stat-bar">
           <div
@@ -16,8 +16,12 @@
   
   <script lang="ts">
   import { defineComponent } from 'vue';
+  import Text from '../components/PokemonText.vue'
   
   export default defineComponent({
+    components: {
+      Text
+    },
     props: {
       stats: {
         type: Array as () => Array<{ stat: { name: string }, base_stat: number }>,
@@ -36,11 +40,15 @@
         justify-content: center;
         text-align: justify;
         margin: 0 auto;
+        .stat_name {
+          font-weight:bold;
+        }
         .stat-bar {
             width: 100%;
             background-color: #e0e0e0;
             border-radius: 5px;
             overflow: hidden;
+            margin-bottom: 10px;
             .stat-bar-inner {
                 height: 20px; 
                 transition: width 0.3s ease-in-out; 

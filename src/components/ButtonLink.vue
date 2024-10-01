@@ -21,7 +21,7 @@
       },
       url: {
         type: [String, Object],
-        required: true,
+        required: false,
       },
       customClass: {
         type: String,
