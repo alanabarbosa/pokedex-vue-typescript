@@ -26,18 +26,20 @@
   
   <style scoped>
   nav {
-    padding: 30px;
     display: flex;
     gap: 20px;
     background: #b31312;
+    flex-wrap: wrap;
     .container {
         display: flex;
+        padding: 0 30px;
         justify-content: space-between
     }
   
     a {
       font-weight: bold;
       color: #ffff;
+      padding: 30px;
       text-transform: uppercase;
       text-decoration: none;
   

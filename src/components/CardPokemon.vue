@@ -96,6 +96,7 @@
     flex-direction: column;
     padding: 20px;
     gap: 20px;
+    transition: all .5s;
     //backdrop-filter: blur(10px);
    // -webkit-backdrop-filter: blur(10px);
     //box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -105,6 +106,13 @@
     width: 40px;
     cursor: pointer;
   }
+
+  @media (max-width: 600px) {
+    .article {
+      margin: 0 30px;
+      border: 1px solid red;
+    }
+  }  
   
   </style>
   

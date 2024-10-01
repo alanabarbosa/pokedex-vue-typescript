@@ -128,6 +128,8 @@ export default defineComponent({
 <style scoped lang="scss">
 #pokemons {
   padding-bottom: 80px;
+  padding: 0 30px;
+  
   .container {
     gap: 20px;
     display: grid;
@@ -135,8 +137,21 @@ export default defineComponent({
     background-color: #161853;
     height: auto;
   }
+
   .pagination {
     grid-column: 1 / -1;
   }
+
+  @media (max-width: 900px) {
+    .container {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 600px) {
+    .container {
+      grid-template-columns: 1fr;
+    }
+  }  
 }
 </style>
+
