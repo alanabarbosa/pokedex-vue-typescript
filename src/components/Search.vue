@@ -1,11 +1,12 @@
 <template>
   <form class="search-container" @submit.prevent>
     <input
-      type="text"
-      v-model="searchTerm"
-      :placeholder="noResults ? 'Pokémon não encontrado.' : 'Digite o nome do Pokémon'"
-      @input="filterPokemons"
-    />
+        type="text"
+        v-model="searchTerm"
+        placeholder="Digite o nome do Pokémon"
+        @input="filterPokemons"
+      />
+    <p v-if="noResults" class="no-results-message">Pokémon não encontrado.</p>
   </form>
 </template>
 
@@ -17,7 +18,7 @@ export default defineComponent({
   setup(props, { emit }) {
     const { pokemons } = usePokemons();
     const searchTerm = ref<string>('');
-    const noResults = ref<boolean>(false);
+    const noResults = ref<boolean>(false); 
 
     const filterPokemons = () => {
       const filtered = pokemons.value.filter(pokemon =>
@@ -25,15 +26,8 @@ export default defineComponent({
       );
 
       emit('update:filteredPokemons', filtered);
-
-      if (filtered.length === 0 && searchTerm.value.trim() !== '') {
-        emit('noResults'); // Emitir evento se não houver resultados
-      }
-      
       noResults.value = filtered.length === 0 && searchTerm.value.trim() !== '';
     };
-
-
 
     return {
       searchTerm,
@@ -67,4 +61,9 @@ input {
     outline: none;
   }
 }
+
+.no-results-message {
+    color: red;
+    margin-top: 10px;
+  }
 </style>

@@ -1,8 +1,9 @@
 <template>
   <section v-if="totalPokemons" id="pokemons">
     <div class="container">
-      <Search @update:filteredPokemons="updateFilteredPokemons" @noResults="restorePokemons" />
+      <Search @update:filteredPokemons="updateFilteredPokemons" />       
 
+   
       <Filters :types="uniqueTypes" @filterPokemons="filterByType" />
 
       <Pagination 
@@ -41,10 +42,10 @@ export default defineComponent({
   },
   setup() {
     const { pokemons, types, fetchPokemons, totalPokemons } = usePokemons();
-    const allPokemons = ref([]); // Inicie como um array vazio
+    const filteredPokemons = ref(pokemons.value);
+
     const favorites = ref<number[]>(JSON.parse(localStorage.getItem("pokemonFavorites") || "[]"));
-    const currentPage = ref(1);
-    
+    const currentPage = ref(1);    
     const selectedTypes = ref<string[]>([]);
 
     const toggleFavorite = (pokemonId: number): void => {
@@ -64,52 +65,44 @@ export default defineComponent({
       console.log(`Selecionou o Pokémon: ${name}`);
     };
 
-    const fetchAllPokemons = async () => {
-      await fetchPokemons(currentPage.value);
-      allPokemons.value = [...pokemons.value]; // Armazena todos os Pokémons
-      totalPokemons.value = allPokemons.value.length; // Atualiza o total
-    };
-
     const filterByType = async (selectedType: string) => {
       currentPage.value = 1; 
       await fetchPokemons(currentPage.value, selectedType);
       totalPokemons.value = pokemons.value.length;
     };
 
-    const updateFilteredPokemons = (filteredPokemons: any[]) => {
-      if (filteredPokemons.length === 0) {
-        // Se não houver resultados, faça uma nova requisição para restaurar a lista de Pokémons
-        console.log("Nenhum Pokémon encontrado, fazendo nova requisição...");
-        fetchAllPokemons(); // Requisição para obter todos os Pokémons
-      } else {
-        pokemons.value = filteredPokemons;
-      }
-      totalPokemons.value = pokemons.value.length;
+    const updateFilteredPokemons = (filtered: any[]) => {
+      filteredPokemons.value = filtered;
     };
 
-    const restorePokemons = () => {
-      pokemons.value = [...allPokemons.value];
-      totalPokemons.value = allPokemons.value.length; 
-    };
+    const filteredPokemonsComputed = computed(() => {
+      // Filtra os Pokémons com base no tipo selecionado
+      if (selectedTypes.value.length > 0) {
+        return pokemons.value.filter(pokemon =>
+          pokemon.type.some(t => selectedTypes.value.includes(t.type.name))
+        );
+      }
+      return filteredPokemons.value.length ? filteredPokemons.value : pokemons.value;
+    });    
 
     const uniqueTypes = computed(() => types.value);
 
     const onPageChange = (page: number) => {
       currentPage.value = page;
-      fetchPokemons(page); // Atualiza os Pokémons para a nova página
-    };
+      const selectedType = selectedTypes.value.length ? selectedTypes.value[0] : null;
+      fetchPokemons(page, selectedType);
+    }
 
     const paginatedPokemons = computed(() => {
-      return pokemons.value;
+      const startIndex = (currentPage.value - 1) * 50;
+      const endIndex = startIndex + 50;
+      //return filteredPokemonsComputed.value.slice(startIndex, endIndex);
+      return filteredPokemonsComputed.value ? filteredPokemonsComputed.value : pokemons.value;
     });
-
-    // Buscar todos os Pokémons na montagem do componente
-    fetchAllPokemons();
 
     return {
       selectPokemon,
       updateFilteredPokemons,
-      restorePokemons,
       filterByType,
       toggleFavorite,
       isFavorite,
@@ -118,11 +111,13 @@ export default defineComponent({
       uniqueTypes,
       paginatedPokemons,
       totalPokemons,
-      allPokemons,
+      //allPokemons,
+      filteredPokemonsComputed
     };
   },
 });
 </script>
+
 
 <style scoped lang="scss">
 #pokemons {
