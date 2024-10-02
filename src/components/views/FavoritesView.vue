@@ -1,6 +1,6 @@
 <template>
   <section class="pokemons" v-if="favoritePokemons">
-    <div class="container">
+    <div class="container" >
       <PokemonTitle title="Meus Favoritos"></PokemonTitle>
       <div v-if="favoritePokemons.length === 0" 
       class="no_content">

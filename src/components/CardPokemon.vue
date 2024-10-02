@@ -1,6 +1,7 @@
 <template>
   <section class="slide-top" v-if="pokemon">
-    <article :class="pokemon.type?.[0]?.type.name">
+    <article :class="pokemon.types && pokemon.types[0] 
+    && pokemon.types[0].type.name ? pokemon.types[0].type.name : '' ">
       <div class="pokemon_header">
         <PokemonId :style="{ background: pokemon.color }" 
         :id="pokemon.id"></PokemonId>
@@ -26,7 +27,7 @@
         </svg>
       </div>
       <PokemonTitle :title="pokemon.name"></PokemonTitle>
-      <PokemonType :types="pokemon.type || []"></PokemonType>
+      <PokemonType :types="pokemon.types || []"></PokemonType>
       <PokemonImage v-if="pokemon.image" 
       :image="pokemon.image" 
       :alt="pokemon.name"></PokemonImage>

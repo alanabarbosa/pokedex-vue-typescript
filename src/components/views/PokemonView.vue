@@ -97,7 +97,7 @@ export default defineComponent({
     const filteredPokemonsComputed = computed(() => {
       if (selectedTypes.value.length > 0) {
         return pokemons.value.filter(pokemon =>
-          pokemon.type.some(t => selectedTypes.value.includes(t.type.name))
+          pokemon.types.some(t => selectedTypes.value.includes(t.type.name))
         );
       }
       return filteredPokemons.value.length ? filteredPokemons.value : pokemons.value;
