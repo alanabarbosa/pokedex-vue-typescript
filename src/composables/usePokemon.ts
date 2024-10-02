@@ -5,7 +5,7 @@ interface Pokemon {
   name: string;
   id: number;
   image: string;
-  types: { type: { name: string } }[];
+  type: { type: { name: string } }[];
   color?: string;
   total: number;
   count: number;
@@ -43,7 +43,7 @@ export function usePokemons() {
               name: pokemon.name,
               id: detailsResponse.data.id,
               image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${detailsResponse.data.id}.png`,
-              types: detailsResponse.data.types,
+              type: detailsResponse.data.types,
               color: color,
             };
           })
@@ -71,7 +71,7 @@ export function usePokemons() {
               name: pokemon.name,
               id: detailsResponse.data.id,
               image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${detailsResponse.data.id}.png`,
-              types: detailsResponse.data.types,
+              type: detailsResponse.data.types,
               color: color,
             };
           })

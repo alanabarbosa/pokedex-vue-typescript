@@ -22,7 +22,7 @@ interface PokemonEvolution {
   item?: {
     name: string | undefined;
     url: string | undefined;
-    spriteUrl?: string | undefined; 
+    spriteUrl?: string; 
   };
 }
 

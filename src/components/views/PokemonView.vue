@@ -12,7 +12,7 @@
         @changePage="onPageChange" 
       />        
       <div v-for="pokemon in paginatedPokemons" 
-      :key="pokemon.id">  
+       :key="pokemon.id">  
         <CardPokemon 
           :pokemon="pokemon" 
           :toggleFavorite="toggleFavorite" 
