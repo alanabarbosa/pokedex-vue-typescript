@@ -61,15 +61,21 @@ export default defineComponent({
       console.log(`Selecionou o Pokémon: ${name}`);
     };
 
-    const filterByType = async (selectedType: string) => {     
-      currentPage.value = 1; 
-      isFiltering.value = true;
-      selectedTypes.value = [selectedType];
-      await fetchPokemons(currentPage.value, selectedType);      
-      
-      filteredPokemons.value = pokemons.value;
-      console.log(filteredPokemons.value);
+    const filterByType = async (selectedType: string) => {
+      currentPage.value = 1;      
+      if (selectedType === '') {
+        isFiltering.value = false;
+        selectedTypes.value = [];
+        await fetchPokemons(currentPage.value);
+        filteredPokemons.value = pokemons.value;
+      } else {
+        isFiltering.value = true;
+        selectedTypes.value = [selectedType];
+        await fetchPokemons(currentPage.value, selectedType);
+        filteredPokemons.value = pokemons.value;
+      }
     };
+
 
     const updateFilteredPokemons = (filtered: any[]) => {
       if (filtered.length === 0 && !isFiltering.value) {
@@ -109,19 +115,6 @@ export default defineComponent({
         filteredPokemons.value = pokemons.value; 
       }
     };
-
-   /* const onPageChange = async (page: number) => {
-      currentPage.value = page;
-
-      if (isFiltering.value) {
-        // Se estiver filtrando por nome ou tipo, mantém o comportamento
-        await fetchPokemons(currentPage.value, selectedTypes.value.join(','));
-      } else {
-        // Se não estiver filtrando, buscar todos os Pokémons da página
-        await fetchPokemons(currentPage.value);
-        filteredPokemons.value = pokemons.value; // Atualizar para a lista completa
-      }
-    };  */
 
     const paginatedPokemons = computed(() => {
       return filteredPokemonsComputed.value ? filteredPokemonsComputed.value : pokemons.value;
