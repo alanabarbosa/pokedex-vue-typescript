@@ -87,8 +87,15 @@
     props: {
       evolution: {
         type: Object as () => ({
+          species_id: number,
           species_name: string;
           min_level: number | null;
+          min_happiness?: number | null;
+          item?: {
+            name: string;
+            url: string;
+            spriteUrl?: string; 
+          };
           evolves_to: Array<{
             species_name: string;
             min_level: number | null;

@@ -2,7 +2,8 @@
   <section class="slide-top" v-if="pokemon">
     <article :class="pokemon.type?.[0]?.type.name">
       <div class="pokemon_header">
-        <PokemonId :style="{ background: pokemon.color }" :id="pokemon.id"></PokemonId>
+        <PokemonId :style="{ background: pokemon.color }" 
+        :id="pokemon.id"></PokemonId>
         <svg
           width="30px"
           viewBox="0 0 24 24"
