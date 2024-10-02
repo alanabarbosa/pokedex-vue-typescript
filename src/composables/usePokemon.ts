@@ -71,7 +71,7 @@ export function usePokemons() {
               name: pokemon.name,
               id: detailsResponse.data.id,
               image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${detailsResponse.data.id}.png`,
-              type: detailsResponse.data.types,
+              types: detailsResponse.data.types,
               color: color,
             };
           })
