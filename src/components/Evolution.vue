@@ -3,7 +3,6 @@
     <TitleSecondary titleSecondary="Evolution Chain"></TitleSecondary>
     <div v-if="evolution">
       <div>
-        <!-- Verifique se `min_level` existe antes de mostrar -->
         <Text v-if="evolution.min_level" :text="`Lvl: ${evolution.min_level}`"></Text>
       </div>
       <div v-for="(nextEvolution, index) in evolution.evolves_to" :key="index" class="evolution-stage">
@@ -90,9 +89,9 @@ export default defineComponent({
         min_level?: number | null;
         min_happiness?: number | null;
         item?: {
-          name: string;
-          url: string;
-          spriteUrl?: string;
+          name: string | null;
+          url: string | null;
+          spriteUrl?: string | null;
         };
         evolves_to: Array<{
           species_name?: string;
@@ -100,8 +99,8 @@ export default defineComponent({
           min_level?: number | null;
           min_happiness?: number | null;
           item?: {
-            name: string;
-            spriteUrl?: string;
+            name: string | null;
+            spriteUrl?: string | null;
           };
           evolves_to: Array<{
             species_name?: string;
@@ -109,8 +108,8 @@ export default defineComponent({
             min_level?: number | null;
             min_happiness?: number | null;
             item?: {
-              name: string;
-              spriteUrl?: string;
+              name: string | null;
+              spriteUrl?: string | null;
             };
             evolves_to: any[];
           }>;

@@ -76,9 +76,9 @@ export default defineComponent({
           min_level: number | null;
           min_happiness?: number | null;
           item?: {
-            name: string;
-            url: string;
-            spriteUrl?: string; 
+            name: string | null;
+            url: string | null;
+            spriteUrl?: string | null; 
           };
           evolves_to: Array<{
             species_name: string;
