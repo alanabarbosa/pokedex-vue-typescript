@@ -28,7 +28,7 @@ interface Pokemon {
   weight: number;
   abilities: Ability[];
   stats: Stat[];
-  type: Type[];
+  types: Type[];
   image: string;
   color?: string;
   
