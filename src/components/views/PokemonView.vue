@@ -1,7 +1,8 @@
 <template>
   <section v-if="totalPokemons" id="pokemons">
     <div class="container">
-      <Search @update:filteredPokemons="updateFilteredPokemons" />   
+      <!-- Passa o searchTerm como uma prop para o componente Search -->
+      <Search @update:filteredPokemons="updateFilteredPokemons" :searchTerm="searchTerm" />   
       <Filters :types="uniqueTypes" @filterPokemons="filterByType" /> 
       <Pagination 
         :pokemonPage="50" 
@@ -43,6 +44,7 @@ export default defineComponent({
     const currentPage = ref(1);    
     const selectedTypes = ref<string[]>([]);
     const isFiltering = ref(false);
+    const searchTerm = ref<string>(''); // Adicione esta linha
 
     const toggleFavorite = (pokemonId: number): void => {
       if (favorites.value.includes(pokemonId)) {
@@ -76,19 +78,15 @@ export default defineComponent({
       }
     };
 
-
     const updateFilteredPokemons = (filtered: any[]) => {
       if (filtered.length === 0 && !isFiltering.value) {
         currentPage.value = 1;
         fetchPokemons(currentPage.value).then(() => {
           filteredPokemons.value = pokemons.value;
         });
-      } else if (filtered.length === 0 && isFiltering.value) {
-        filteredPokemons.value = [];
       } else {
         filteredPokemons.value = filtered;
       }
-      isFiltering.value = searchTerm.value.trim() !== '';
     };
 
     const filteredPokemonsComputed = computed(() => {
@@ -131,11 +129,10 @@ export default defineComponent({
       uniqueTypes,
       paginatedPokemons,
       totalPokemons,
-      //allPokemons,
-      filteredPokemonsComputed,
       isFiltering,
       filteredPokemonsCount,
-      filteredPokemons
+      filteredPokemons,
+      searchTerm, // Retorne o searchTerm aqui
     };
   },
 });

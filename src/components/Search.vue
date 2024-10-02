@@ -6,7 +6,9 @@
         placeholder="Digite o nome do Pokémon"
         @input="filterPokemons"
       />
-    <p v-if="noResults" class="no-results-message">Pokémon não encontrado.</p>
+      <p v-if="noResults" class="no-results-message">
+        Pokémon não encontrado.
+      </p>
   </form>
 </template>
 
@@ -24,7 +26,6 @@ export default defineComponent({
       const filtered = pokemons.value.filter(pokemon =>
         pokemon.name.toLowerCase().includes(searchTerm.value.toLowerCase())
       );
-
       emit('update:filteredPokemons', filtered);
       noResults.value = filtered.length === 0 && searchTerm.value.trim() !== '';
     };
