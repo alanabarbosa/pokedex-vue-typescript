@@ -1,13 +1,13 @@
 <template>
     <section class="slide-top"  v-if="pokemon" >
         <div class="pokemon-details" 
-        :class="pokemon.type[0].type.name">
+        :class="pokemon.types && pokemon.types[0] ? pokemon.types[0].type.name : ''">
         <div class="container">
             <div class="pokemon_title">
               <PokemonId :style="{ background: pokemon.color}"
               :id="pokemon.id"></PokemonId>
                 <PokemonTitle :title="pokemon.name"></PokemonTitle>
-                <PokemonType :types="pokemon.types"></PokemonType>
+                <PokemonType :types="pokemon.types || pokemon.type || []"></PokemonType>
             </div>    
             <div>
               <PokemonImage v-if="pokemon.image"
@@ -16,12 +16,12 @@
             </div> 
         </div>        
             <TabNav 
-            :color="pokemon.types[0].type.name"
+            :color="pokemon.types && pokemon.types[0] ? pokemon.types[0].type.name : ''"
             :tabs="['about', 'stats', 'evolution']"
             :abilities="pokemon.abilities"
             :height="pokemon.height"
             :weight="pokemon.weight"
-            :types="pokemon.types"
+            :types="pokemon.types || pokemon.type || []"
             :stats="pokemon.stats"
             :evolution="pokemonEvolution.value" 
             />

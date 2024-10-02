@@ -14,7 +14,10 @@
       <div v-for="pokemon in paginatedPokemons" 
        :key="pokemon.id"> 
         <CardPokemon 
-          :pokemon="pokemon" 
+        :pokemon="{ 
+            ...pokemon, 
+            types: pokemon.types || pokemon.type || [] 
+          }" 
           :toggleFavorite="toggleFavorite" 
           :isFavorite="isFavorite" 
           :selectPokemon="selectPokemon" 

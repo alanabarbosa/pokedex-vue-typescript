@@ -5,7 +5,7 @@ interface Pokemon {
   name: string;
   id: number;
   image: string;
-  type: { type: { name: string } }[];
+  types: { type: { name: string } }[];
   color?: string;
   total: number;
 }
@@ -35,7 +35,7 @@ export function usePokemonFavorites() {
             id: detailsResponse.data.id,
             total: totalPokemons.value,
             image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${detailsResponse.data.id}.png`,
-            type: detailsResponse.data.types,
+            types: detailsResponse.data.types,
             color: color,
           };
         })
@@ -50,7 +50,7 @@ export function usePokemonFavorites() {
   const fetchPokemonTypes = async () => {
     try {
       const response = await axios.get('https://pokeapi.co/api/v2/type/');
-      types.value = response.data.results.filter((item) => item.name !== 'unknown');
+      types.value = response.data.results.filter((type: Type) => type.name !== 'unknown');
     } catch (error) {
       console.error('Erro ao buscar tipos de Pokémon:', error);
     }
