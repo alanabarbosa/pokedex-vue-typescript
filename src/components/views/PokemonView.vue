@@ -2,9 +2,11 @@
   <section v-if="totalPokemons" class="pokemons">
     <div class="container">
       <Search @update:filteredPokemons="updateFilteredPokemons" 
-      :searchTerm="searchTerm" />   
+        :searchTerm="searchTerm" />   
       <Filters :types="uniqueTypes" 
-      @filterPokemons="filterByType" /> 
+        @filterPokemons="filterByType" /> 
+      <Language :languages="languages" 
+        @choiceLanguage="changeLanguage" />
       <Pagination 
         :pokemonPage="50" 
         :pokemonsTotal="totalPokemons"  
@@ -12,7 +14,7 @@
         @changePage="onPageChange" 
       />        
       <div v-for="pokemon in paginatedPokemons" 
-       :key="pokemon.id"> 
+        :key="pokemon.id"> 
         <CardPokemon 
           :pokemon="{ 
             ...pokemon, 
@@ -33,10 +35,13 @@
 <script lang="ts">
 import { defineComponent, ref, computed } from 'vue';
 import { usePokemons } from '../../composables/usePokemon';
+import { useI18n } from 'vue-i18n';
+import { languages } from '../../i18n'
 import Search from '../Search.vue';
 import CardPokemon from '../CardPokemon.vue';
 import Pagination from '../Pagination.vue';
 import Filters from '../Filter.vue';
+import Language from '../Language.vue'; 
 
 export default defineComponent({
   components: {
@@ -44,8 +49,11 @@ export default defineComponent({
     CardPokemon,
     Pagination,
     Filters,
+    Language
   },
   setup() {
+    const { t, locale } = useI18n();
+
     const { pokemons, types, fetchPokemons, totalPokemons } = usePokemons();
     const filteredPokemons = ref(pokemons.value);
     const favorites = ref<number[]>(JSON.parse(localStorage.getItem("pokemonFavorites") || "[]"));
@@ -53,6 +61,11 @@ export default defineComponent({
     const selectedTypes = ref<string[]>([]);
     const isFiltering = ref(false);
     const searchTerm = ref<string>(''); 
+
+    
+    const changeLanguage = (languageCode: string) => {
+      locale.value = languageCode; 
+    };
 
     const toggleFavorite = (pokemonId: number): void => {
       if (favorites.value.includes(pokemonId)) {
@@ -141,13 +154,13 @@ export default defineComponent({
       filteredPokemonsCount,
       filteredPokemons,
       searchTerm,
+      languages,
+      changeLanguage 
     };
   },
 });
 </script>
 
-
 <style scoped lang="scss">
 
 </style>
-

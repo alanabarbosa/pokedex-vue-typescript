@@ -11,14 +11,19 @@
 
 <script lang="ts">
 import { defineComponent, ref, onMounted, onUnmounted } from 'vue';
-import Nav from '../src/components/Nav.vue'
+import { useI18n } from 'vue-i18n';
+import Nav from '../src/components/Nav.vue';
+import Language from '../src/components/Language.vue';
 
 export default defineComponent({
   name: 'App',
   components: {
-    Nav
+    Nav,
+    Language,
   },
   setup() {
+    const { t, locale } = useI18n(); // Acessa o i18n
+
     const favoriteCount = ref<number>(0);
     let storedFavorites = localStorage.getItem("pokemonFavorites");
 
@@ -26,6 +31,10 @@ export default defineComponent({
       const storedFavorites = localStorage.getItem("pokemonFavorites");
       const favorites: number[] = storedFavorites ? JSON.parse(storedFavorites) : [];
       favoriteCount.value = favorites.length;
+    };
+
+    const changeLanguage = (languageCode: string) => {
+      locale.value = languageCode; // Altera o idioma no i18n
     };
 
     let interval: number;
@@ -48,8 +57,8 @@ export default defineComponent({
           navigation.classList.remove('sticky');
         }
       }
-    };    
-   
+    };
+
     onMounted(() => {
       updateFavoriteCount();
       interval = window.setInterval(checkStorage, 1000);
@@ -65,11 +74,12 @@ export default defineComponent({
       favoriteCount,
       updateFavoriteCount,
       handleScroll,
-
+      changeLanguage, // Função para mudar o idioma
     };
   }
 });
 </script>
+
 
 <style lang="scss">
 *,

@@ -16,4 +16,7 @@ export default defineConfig({
       '@': '/src',
     },
   },
+  optimizeDeps: {
+    include: ['vue-i18n'],
+  },
 })
