@@ -10,7 +10,7 @@ interface EvolutionDetails {
   item?: {
     name: string;
     url: string;
-    spriteUrl?: string; // Adiciona a URL do sprite
+    spriteUrl?: string;
   };
 }
 
@@ -22,9 +22,10 @@ interface PokemonEvolution {
   item?: {
     name: string;
     url: string;
-    spriteUrl?: string; // Adiciona a URL do sprite
+    spriteUrl?: string; 
   };
 }
+
 
 export function usePokemonEvolution(pokemonId: number) {
   const pokemonEvolution = ref<PokemonEvolution | null>(null);
@@ -66,7 +67,7 @@ export function usePokemonEvolution(pokemonId: number) {
           min_happiness: chain.evolution_details.length > 0 ? chain.evolution_details[0].min_happiness : undefined,
           evolves_to: await Promise.all(chain.evolves_to.map((evolution: any) => mapEvolutionChain(evolution))),
           species_id: getSpeciesId(chain.species.url),
-          item: itemDetails, // Inclui os detalhes do item
+          item: itemDetails,
         };
       };
 

@@ -39,6 +39,7 @@
   </section>
   <section v-else>
     <PokemonText text="Não existe pokemon"></PokemonText>
+    <img src="../../assets/images/loading.svg" alt="">
   </section>
 </template>
 

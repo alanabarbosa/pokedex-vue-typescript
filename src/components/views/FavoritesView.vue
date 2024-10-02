@@ -2,10 +2,12 @@
   <section class="pokemons" v-if="favoritePokemons">
     <div class="container">
       <PokemonTitle title="Meus Favoritos"></PokemonTitle>
-      <div v-if="favoritePokemons.length === 0" class="no_content">
+      <div v-if="favoritePokemons.length === 0" 
+      class="no_content">
         <Text text="Não existem pokémons salvos"></Text>
       </div>
-      <div v-for="pokemon in favoritePokemons" :key="pokemon.id">
+      <div v-for="pokemon in favoritePokemons" 
+      :key="pokemon.id">
         <CardPokemon 
           :pokemon="pokemon" 
           :toggleFavorite="toggleFavorite" 

@@ -27,9 +27,9 @@
             />
         </div>
     </section>
-    <div>
+    <div v-else>
       <img src="../../assets/images/loading.svg" alt="">
-  </div>
+    </div>
   </template>
   <script lang="ts">
   import { defineComponent, ref, watch } from 'vue';

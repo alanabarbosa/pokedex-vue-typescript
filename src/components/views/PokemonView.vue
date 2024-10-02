@@ -1,16 +1,18 @@
 <template>
   <section v-if="totalPokemons" class="pokemons">
     <div class="container">
-      <!-- Passa o searchTerm como uma prop para o componente Search -->
-      <Search @update:filteredPokemons="updateFilteredPokemons" :searchTerm="searchTerm" />   
-      <Filters :types="uniqueTypes" @filterPokemons="filterByType" /> 
+      <Search @update:filteredPokemons="updateFilteredPokemons" 
+      :searchTerm="searchTerm" />   
+      <Filters :types="uniqueTypes" 
+      @filterPokemons="filterByType" /> 
       <Pagination 
         :pokemonPage="50" 
         :pokemonsTotal="totalPokemons"  
         :currentPage="currentPage"
         @changePage="onPageChange" 
       />        
-      <div v-for="pokemon in paginatedPokemons" :key="pokemon.id">  
+      <div v-for="pokemon in paginatedPokemons" 
+      :key="pokemon.id">  
         <CardPokemon 
           :pokemon="pokemon" 
           :toggleFavorite="toggleFavorite" 
@@ -20,6 +22,9 @@
       </div>
     </div>
   </section>
+  <div v-else>
+    <img src="../../assets/images/loading.svg" alt="">
+  </div>
 </template>
 
 <script lang="ts">
@@ -132,7 +137,7 @@ export default defineComponent({
       isFiltering,
       filteredPokemonsCount,
       filteredPokemons,
-      searchTerm, // Retorne o searchTerm aqui
+      searchTerm,
     };
   },
 });
