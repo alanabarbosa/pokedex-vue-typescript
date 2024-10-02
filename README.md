@@ -1,16 +1,27 @@
 # Vue Pokedex
 
-Esta é uma aplicação de Pokedex desenvolvida com **Vue.js** utilizando **Vite** como bundler. A aplicação exibe informações sobre os Pokémon, como detalhes, habilidades e evolução.
+Esta é uma aplicação de Pokedex desenvolvida com **Vue 3**, **TypeScript**, **Vite** como bundler e **Composition API**. A aplicação exibe informações sobre os Pokémon, como detalhes, habilidades e evolução.
 
 ## Tecnologias Utilizadas
 
-- **Vue.js** (com Vite)
+- **Vue 3** (com Composition API)
+- **TypeScript**
+- **Vite** (para bundling)
 - **Axios** (para chamadas à PokéAPI)
 - **Docker** (para containerização da aplicação)
 
+---
+
+## Menu de Navegação
+
+- [Iniciar com Docker](#1-iniciar-com-docker)
+- [Executar Localmente com Vite](#2-executar-localmente-com-vite)
+
+---
+
 ## Como Executar a Aplicação
 
-### 2. Iniciar com Docker
+### 1. Iniciar com Docker
 
 Você pode rodar a aplicação usando Docker, o que facilitará a configuração do ambiente. Siga os passos abaixo:
 
