@@ -107,6 +107,7 @@
       const getPokemonImage = (speciesId: number) => {
         return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${speciesId}.png`;
       };
+
   
       return {
         getPokemonImage,
