@@ -37,7 +37,7 @@ Você pode rodar a aplicação usando Docker, o que facilitará a configuração
    Após a construção da imagem, execute o seguinte comando para iniciar a aplicação em um container Docker:
 
    ```bash
-   docker run -d -p 8080:8080 vue-pokedex  
+   docker run -d -p 8080:8080 -v $(pwd):/usr/app vue-pokedex 
 
 3. **Acessar a aplicação:**
    Abra o navegador e acesse o seguinte endereço:
@@ -48,6 +48,8 @@ Você pode rodar a aplicação usando Docker, o que facilitará a configuração
 ### 2. Executar Localmente com Vite
 
 Se preferir executar a aplicação localmente sem Docker, você pode usar Vite para desenvolvimento:
+
+#### Passos para executar a aplicação localmente:
 
 1. **Instalar dependências:**
    No diretório raiz do projeto, instale as dependências usando npm:

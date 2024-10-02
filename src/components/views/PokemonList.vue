@@ -27,7 +27,7 @@
             />
         </div>
     </section>
-    <div v-else>
+    <div>
       <img src="../../assets/images/loading.svg" alt="">
   </div>
   </template>
