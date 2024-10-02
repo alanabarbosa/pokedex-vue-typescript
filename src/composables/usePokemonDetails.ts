@@ -41,27 +41,24 @@ export function usePokemonDetails() {
 
   const fetchPokemonDetails = async (name: string) => {
     try {
-      const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);   
-
+      const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`); 
 
       const speciesUrl = response.data.species.url
       const speciesResponse = await axios.get(speciesUrl);
       const color = speciesResponse.data.color.name;
 
-      pokemon.value = {
-        ...response.data,
-        id: response.data.id,
-        image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${response.data.id}.png`,
-        color: color
-      };
+      if (response.data && response.data.id) {
+        pokemon.value = {
+          ...response.data,
+          id: response.data.id,
+          image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${response.data.id}.png`,
+          color: color
+        };
+      }
     } catch (error) {
       console.error('Erro ao buscar detalhes do Pokémon:', error);
     }
   };
-
-  const fetchPokemonEvolution = () => {
-    console.log('aqui')
-  }
 
   const calculatePercentage = (baseStat: number): number => {
     const maxStat = 255;
@@ -75,7 +72,6 @@ export function usePokemonDetails() {
 
   return {
     pokemon,
-    calculatePercentage,
-    fetchPokemonEvolution
+    calculatePercentage
   };
 }

@@ -6,9 +6,9 @@
             <div class="pokemon_title">
               <PokemonId :style="{ background: pokemon.color}"
               :id="pokemon.id"></PokemonId>
-                <PokemonTitle :title="pokemon.name"></PokemonTitle>
-                <PokemonType :types="pokemon.types || []"></PokemonType>
-            </div>    
+              <PokemonTitle :title="pokemon.name"></PokemonTitle>
+              <PokemonType :types="pokemon.types || []"></PokemonType>
+            </div>
             <div>
               <PokemonImage v-if="pokemon.image"
               :image="pokemon.image"
@@ -31,6 +31,7 @@
       <img src="../../assets/images/loading.svg" alt="">
     </div>
   </template>
+  
   <script lang="ts">
   import { defineComponent, ref, watch } from 'vue';
   import TabNav from '../TabNav.vue';
@@ -59,6 +60,7 @@
           pokemonEvolution.value = evolutionData; 
         }
       }, { immediate: true });
+
   
       return {
         pokemon,
