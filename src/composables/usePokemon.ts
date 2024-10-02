@@ -88,6 +88,7 @@ export function usePokemons() {
     try {
       const response = await axios.get('https://pokeapi.co/api/v2/type/');
       types.value = response.data.results.filter((type: Type) => type.name !== 'unknown' && type.name !== 'stellar');
+      return types.value;
     } catch (error) {
       console.error('Erro ao buscar tipos de Pokémon:', error);
     }
@@ -105,5 +106,6 @@ export function usePokemons() {
     currentPage,
     types,
     selectedTypes,
+    fetchPokemonTypes
   };
 }

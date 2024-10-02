@@ -33,14 +33,14 @@
       :alt="pokemon.name"></PokemonImage>
       <ButtonLink 
         @click="selectPokemon(pokemon.name)" 
-        label="Exibir Detalhes" 
+        :label="$t('showDetails')"
         :url="{ name: 'pokemonList', params: { name: pokemon.name } }" 
         customClass="btn-primary" 
       />
     </article>
   </section>
   <section v-else>
-    <PokemonText text="Não existe pokemon"></PokemonText>
+    <PokemonText :text="$t('noPokemon')"></PokemonText>
     <img src="@/assets/images/loading.svg" alt="">
   </section>
 </template>

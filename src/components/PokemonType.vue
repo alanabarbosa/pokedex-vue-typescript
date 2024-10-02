@@ -1,7 +1,7 @@
 <template>
     <div class="types">
         <p v-for="type in types" :key="type.type.name" :class="type.type.name">
-            {{ type.type.name }}
+          {{ $t(`types.${type.type.name}`) }}
         </p>
     </div>
 </template>
