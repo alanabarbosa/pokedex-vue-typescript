@@ -14,7 +14,7 @@
               :image="pokemon.image"
               :alt="pokemon.name"></PokemonImage>
             </div> 
-        </div>      
+        </div>     
             <TabNav 
             :color="pokemon.types && pokemon.types[0] ? pokemon.types[0].type.name : ''"
             :tabs="['about', 'stats', 'evolution']"
@@ -23,7 +23,7 @@
             :weight="pokemon.weight"
             :types="pokemon.types || []"
             :stats="pokemon.stats"
-            :evolution="pokemonEvolution.value" 
+            :evolution="pokemonEvolution.value || []" 
             />
         </div>
     </section>
@@ -52,7 +52,7 @@
     },
     setup() {
       const { pokemon, calculatePercentage } = usePokemonDetails();
-      const pokemonEvolution = ref({});
+      const pokemonEvolution = ref<any>({});
 
       watch(pokemon, (newPokemon) => {
         if (newPokemon && newPokemon.id) {
