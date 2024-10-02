@@ -38,8 +38,7 @@
         </figure>
 
         <div v-for="(furtherEvolution, idx) in nextEvolution.evolves_to" :key="idx" class="evolution">
-          <strong v-if="furtherEvolution" class="level_up">
-            {{furtherEvolution}}
+          <strong v-if="furtherEvolution" class="level_up">       
             <Text v-if="furtherEvolution.min_level" :text="`Lvl: ${furtherEvolution.min_level}`"></Text>
             <Text v-if="furtherEvolution.min_happiness" :text="`Happiness: ${furtherEvolution.min_happiness}`"></Text>  
             
