@@ -3,15 +3,16 @@
   </template>
   
   <script>
-  export default {
-    name: "pokemon-title",
+  import { defineComponent } from 'vue';
+  export default defineComponent({
+    name: 'pokemon-title',
     props: {
       title: {
-        type: String,
-        required: true,
-      },
-    },
-  };
+        type: Object,
+        required: true
+      }
+    }
+  });
   </script>
   
   <style scoped>
