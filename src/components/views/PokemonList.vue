@@ -1,7 +1,7 @@
 <template>
     <section class="slide-top"  v-if="pokemon" >
         <div class="pokemon-details" 
-        :class="pokemon.types[0]?.type?.name">
+        :class="pokemon.types[0].type.name ? pokemon.types[0].type.name : ''">
         <div class="container">
             <div class="pokemon_title">
               <PokemonId :style="{ background: pokemon.color}"
