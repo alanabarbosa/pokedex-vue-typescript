@@ -119,11 +119,17 @@ export default defineComponent({
   border-radius: 45px;
   padding: 20px 0 80px 0;
 
+  
+
   .tab-buttons {
     display: flex;
     gap: 20px;
     padding: 30px 0;
     position: relative;
+    @media (max-width: 900px) {
+      flex-direction: column;
+      gap: 50px;
+    }
 
     button {
       border: none;
@@ -133,6 +139,9 @@ export default defineComponent({
       width: 33%;
       margin-top: -50px;
       font-size: 30px;
+      @media (max-width: 900px) {
+        width: 100%;
+      }
       cursor: pointer;
       font-weight: 700;
       background: none;

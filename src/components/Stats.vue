@@ -1,6 +1,6 @@
 <!-- Stats.vue -->
 <template>
-    <section v-for="(stat, index) in stats" :key="index" class="stats">
+    <section v-for="(stat, index) in stats" :key="index" class="stats slide-top">
       <Text class="stat_name" :text="stat.stat.name"></Text>
       <Text :text="`${stat.base_stat}%`"></Text>
       <div class="stat-bar-box">

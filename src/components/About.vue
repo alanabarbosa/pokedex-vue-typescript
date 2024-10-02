@@ -1,6 +1,6 @@
 <!-- About.vue -->
 <template>
-    <section class="about">
+    <section class="about slide-top">
       <div class="abilities">
         <TitleSecondary titleSecondary="Abilities:"></TitleSecondary>
         <div v-for="(item) in abilities" :key="item.ability.name">

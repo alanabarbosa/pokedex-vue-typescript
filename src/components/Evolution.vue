@@ -1,26 +1,26 @@
 <template>
-  <section class="box_evolution">
+  <section class="box_evolution slide-top">
     <TitleSecondary titleSecondary="Evolution Chain"></TitleSecondary>
     <div v-if="evolution">
       <div>
         <Text v-if="evolution.min_level" :text="`Lvl: ${evolution.min_level}`"></Text>
       </div>
+
+  
       <div v-for="(nextEvolution, index) in evolution.evolves_to" :key="index" class="evolution-stage">
         <div class="evolution">
-          <figure>
-            <!-- Usando v-if para garantir que a imagem e o nome existam -->
-            <Image v-if="nextEvolution.species_id && getPokemonImage(nextEvolution.species_id)" 
-            :image="getPokemonImage(nextEvolution.species_id)"
-            :alt="nextEvolution.species_name || ''"
+          <figure>        
+            <Image v-if="evolution.species_id && getPokemonImage(evolution.species_id)" 
+            :image="getPokemonImage(evolution.species_id)"
+            :alt="evolution.species_name || ''"
             class="image_evolution" ></Image>
-            <Text v-if="nextEvolution.species_name" :text="nextEvolution.species_name"></Text>
+            <Text v-if="evolution.species_name" :text="evolution.species_name"></Text>
           </figure>
           
           <strong v-if="nextEvolution" class="level_up">
             <Text v-if="nextEvolution.min_level" :text="`Lvl: ${nextEvolution.min_level}`"></Text>
             <Text v-if="nextEvolution.min_happiness" :text="`Happiness: ${nextEvolution.min_happiness}`"></Text>
-            
-            <!-- Verifique a existência de `item` e evite erros caso não exista -->
+                
             <Image v-if="nextEvolution.item?.spriteUrl"
             :image="nextEvolution.item.spriteUrl"
             :alt="nextEvolution.item?.name || ''"
@@ -42,7 +42,6 @@
             <Text v-if="furtherEvolution.min_level" :text="`Lvl: ${furtherEvolution.min_level}`"></Text>
             <Text v-if="furtherEvolution.min_happiness" :text="`Happiness: ${furtherEvolution.min_happiness}`"></Text>  
             
-            <!-- Verifique a existência de `item` e evite erros -->
             <Image v-if="furtherEvolution.item?.spriteUrl"
             :image="furtherEvolution.item.spriteUrl"
             :alt="furtherEvolution.item?.name || ''"
@@ -137,6 +136,9 @@ export default defineComponent({
     gap: 50px;
     justify-content: center;
     margin-top: 30px;
+    @media (max-width: 900px) {
+      flex-direction: column;
+    }
     .image_evolution {
       width: 150px;
     }
@@ -146,6 +148,10 @@ export default defineComponent({
       color: #000;
       font-weight: bold;
       gap: 20px;
+      @media (max-width: 900px) {
+        justify-content: center;
+        margin: 0 auto;
+      }
       figcaption {
         text-transform: capitalize;
       }
@@ -154,10 +160,19 @@ export default defineComponent({
       display: flex;
       gap: 51px;
       align-items: center;
+      @media (max-width: 900px) {
+        justify-content: center;
+        display: grid;
+      }
       .item_img {
         width: 25px;
         height: 36px;
         margin: 0 auto;
+      }
+      strong {
+        @media (max-width: 900px) {
+         width: 100%;
+        }
       }
       .level_up {
         position: relative;

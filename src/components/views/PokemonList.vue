@@ -73,6 +73,7 @@
   
   <style scoped lang="scss">
   .pokemon-details {
+    margin: 0 30px;
     border-radius: 45px;
     .container {
       display: flex;
