@@ -14,9 +14,9 @@
       <div v-for="pokemon in paginatedPokemons" 
        :key="pokemon.id"> 
         <CardPokemon 
-        :pokemon="{ 
+          :pokemon="{ 
             ...pokemon, 
-            types: pokemon.types || pokemon.type || [] 
+            types: pokemon.types || [] 
           }" 
           :toggleFavorite="toggleFavorite" 
           :isFavorite="isFavorite" 
@@ -52,7 +52,7 @@ export default defineComponent({
     const currentPage = ref(1);    
     const selectedTypes = ref<string[]>([]);
     const isFiltering = ref(false);
-    const searchTerm = ref<string>(''); // Adicione esta linha
+    const searchTerm = ref<string>(''); 
 
     const toggleFavorite = (pokemonId: number): void => {
       if (favorites.value.includes(pokemonId)) {

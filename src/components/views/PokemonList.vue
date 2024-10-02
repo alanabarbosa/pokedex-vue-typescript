@@ -21,7 +21,7 @@
             :abilities="pokemon.abilities"
             :height="pokemon.height"
             :weight="pokemon.weight"
-            :types="pokemon.types || pokemon.type || []"
+            :types="pokemon.types || []"
             :stats="pokemon.stats"
             :evolution="pokemonEvolution.value" 
             />

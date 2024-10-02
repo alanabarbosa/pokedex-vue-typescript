@@ -11,7 +11,7 @@
         <CardPokemon 
           :pokemon="{ 
             ...pokemon, 
-            types: pokemon.types || pokemon.type || [] 
+            types: pokemon.types || [] 
           }" 
           :toggleFavorite="toggleFavorite" 
           :isFavorite="isFavorite" 
