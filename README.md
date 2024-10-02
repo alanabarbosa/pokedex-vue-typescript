@@ -1,5 +1,23 @@
-# Vue 3 + TypeScript + Vite
+# Vue Pokedex
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Esta é uma aplicação de Pokedex desenvolvida com **Vue.js** utilizando **Vite** como bundler. A aplicação exibe informações sobre os Pokémon, como detalhes, habilidades e evolução.
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
+## Tecnologias Utilizadas
+
+- **Vue.js** (com Vite)
+- **Axios** (para chamadas à PokéAPI)
+- **Docker** (para containerização da aplicação)
+
+## Como Executar a Aplicação
+
+### 1. Iniciar com Docker
+
+Você pode rodar a aplicação usando Docker, o que facilitará a configuração do ambiente. Siga os passos abaixo:
+
+#### Passos para rodar a aplicação com Docker:
+
+1. **Construir a imagem do Docker:**
+   No diretório raiz do projeto, execute o seguinte comando para construir a imagem Docker:
+
+   ```bash
+   docker build -t vue-pokedex .
