@@ -90,7 +90,7 @@
       h1 {
         grid-column: 1 / -1;
         padding: 20px 0;
-        color: #000
+        color: #fff
       }
       span {
         color: #FFF

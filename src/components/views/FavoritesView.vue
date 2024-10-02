@@ -1,5 +1,5 @@
 <template>
-  <section id="favorites" v-if="favoritePokemons">
+  <section class="pokemons" v-if="favoritePokemons">
     <div class="container">
       <PokemonTitle title="Meus Favoritos"></PokemonTitle>
       <div v-if="favoritePokemons.length === 0" class="no_content">
@@ -65,20 +65,16 @@ export default defineComponent({
 
 
 <style scoped lang="scss">
-#favorites {
-  .container {
-    gap: 20px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    h1,
-    p {
-      color: #fff;
-    }
-    h1,
-    .no_content {
-      grid-column: 1 / -1;
-      margin-top: 20px;
-    }
-  }
+.pokemons {
+  padding-bottom: 80px;
 }
+  h1,
+  p {
+    grid-column: 1 / -1;
+    color: #FFF;
+    text-align: center;
+  }
+   h1 {
+    margin-top: 30px;
+   }
 </style>

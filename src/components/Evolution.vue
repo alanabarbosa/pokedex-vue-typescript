@@ -44,23 +44,22 @@
               width="28px" height="33px" class="item_img" ></Image>          
               <Text v-if="furtherEvolution.item" :text="furtherEvolution.item.name"></Text>               
              </strong>
-            <strong class="level_up">        
-            
-            <Image v-if="furtherEvolution.item"
-            :image="furtherEvolution.item.spriteUrl"
-            :alt="furtherEvolution.item.name"
-            width="28px" height="33px" class="item_img" ></Image> 
-            <Text v-if="furtherEvolution.item" :text="furtherEvolution.item.name"></Text>
-            <Text v-if="furtherEvolution.species_name" :text="furtherEvolution.species_name"></Text> 
-         
-              
-            </strong>    
-            <figure>
+
+            <strong class="level_up" v-if="furtherEvolution.item">
+              <Image v-if="furtherEvolution.item"
+              :image="furtherEvolution.item.spriteUrl"
+              :alt="furtherEvolution.item.name"
+              width="28px" height="33px" class="item_img" ></Image> 
+              <Text v-if="furtherEvolution.item" :text="furtherEvolution.item.name"></Text>
+              <Text v-if="furtherEvolution.item" :text="furtherEvolution.species_name"></Text>   
+            </strong>  
+
+            <figure>              
               <Image 
               :image="getPokemonImage(furtherEvolution.species_id)"
               :alt="furtherEvolution.species_name"
               class="image_evolution"  ></Image>  
-              <Text v-if="nextEvolution.species_name " :text="nextEvolution.species_name "></Text>
+              <Text v-if="furtherEvolution.species_name" :text="furtherEvolution.species_name"></Text> 
           </figure>        
            
           </div>
@@ -143,6 +142,7 @@
                 .item_img {
                     width: 25px;
                     height: 36px;
+                    margin: 0 auto;
                 }
                 .level_up {
                     position: relative;
@@ -154,6 +154,7 @@
                         width: 42px;
                         height: 42px;
                         background-size: 36px;
+                        margin: 0 auto;
                     }
                 }
             }

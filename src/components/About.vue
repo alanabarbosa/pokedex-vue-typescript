@@ -65,7 +65,7 @@
         gap: 10px;
         color: #000;
         width: 100%;
-        width: 32%;
+        width: 42%;
         margin: 0 auto;
         h2 {
           color: #000
