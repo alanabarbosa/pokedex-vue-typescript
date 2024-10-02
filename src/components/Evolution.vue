@@ -43,15 +43,15 @@
               :alt="furtherEvolution.item.name"
               width="28px" height="33px" class="item_img" ></Image>          
               <Text v-if="furtherEvolution.item" :text="furtherEvolution.item.name"></Text>               
-              </strong>
+             </strong>
             <strong class="level_up">        
             
-              <Image v-if="furtherEvolution.item"
-              :image="furtherEvolution.item.spriteUrl"
-              :alt="furtherEvolution.item.name"
-              width="28px" height="33px" class="item_img" ></Image> 
-              <Text v-if="furtherEvolution.item" :text="furtherEvolution.item.name"></Text>
-              <Text v-if="furtherEvolution.species_name" :text="furtherEvolution.species_name"></Text> 
+            <Image v-if="furtherEvolution.item"
+            :image="furtherEvolution.item.spriteUrl"
+            :alt="furtherEvolution.item.name"
+            width="28px" height="33px" class="item_img" ></Image> 
+            <Text v-if="furtherEvolution.item" :text="furtherEvolution.item.name"></Text>
+            <Text v-if="furtherEvolution.species_name" :text="furtherEvolution.species_name"></Text> 
          
               
             </strong>    
