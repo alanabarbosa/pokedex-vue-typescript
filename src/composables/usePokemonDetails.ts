@@ -9,7 +9,7 @@ interface Ability {
 }
 
 interface Type {
-  type: {
+  types: {
     name: string;
   };
 }
