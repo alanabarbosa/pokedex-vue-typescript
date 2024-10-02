@@ -13,7 +13,7 @@ export default defineComponent({
   props: {
     types: {
       type: Array as () => Array<{ type: { name: string } }>,
-      required: true,
+      required: false,
     },
   },
 });

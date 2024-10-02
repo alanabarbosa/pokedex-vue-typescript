@@ -14,7 +14,7 @@
               :image="pokemon.image"
               :alt="pokemon.name"></PokemonImage>
             </div> 
-        </div>        
+        </div>      
             <TabNav 
             :color="pokemon.types && pokemon.types[0] ? pokemon.types[0].type.name : ''"
             :tabs="['about', 'stats', 'evolution']"
