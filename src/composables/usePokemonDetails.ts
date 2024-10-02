@@ -9,10 +9,9 @@ interface Ability {
 }
 
 interface Type {
-  types: {
-    name: string;
-  };
+  name: string;
 }
+
 
 interface Stat {
   base_stat: number;
@@ -31,7 +30,6 @@ interface Pokemon {
   types: Type[];
   image: string;
   color?: string;
-  
 }
 
 
