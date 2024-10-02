@@ -18,7 +18,7 @@ interface PokemonEvolution {
   species_name: string;
   min_happiness?: number | null;
   evolves_to: EvolutionDetails[];
-  species_id: number;  
+  species_id?: number;  
   item?: {
     name: string;
     url: string;

@@ -1,5 +1,5 @@
 <template>
-    <section class="slide-top"  v-if="pokemon">
+    <section class="slide-top"  v-if="pokemon" >
         <div class="pokemon-details" 
         :class="pokemon.types[0]?.type?.name">
         <div class="container">

@@ -71,20 +71,27 @@ export default defineComponent({
     },
     evolution: {
       type: Object as () => ({
-        species_name: string;
-        min_level: number | null;
-        evolves_to: Array<{
+        species_id: number,
           species_name: string;
           min_level: number | null;
+          min_happiness?: number | null;
+          item?: {
+            name: string;
+            url: string;
+            spriteUrl?: string; 
+          };
           evolves_to: Array<{
             species_name: string;
             min_level: number | null;
-            evolves_to: any[];
+            evolves_to: Array<{
+              species_name: string;
+              min_level: number | null;
+              evolves_to: any[];
+            }>;
           }>;
-        }>;
-      }),
-      required: false,
-      default: null,
+        }),
+        required: false,
+        default: null,
     },
   },
   setup(props) {
