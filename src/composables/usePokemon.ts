@@ -87,7 +87,7 @@ export function usePokemons() {
   const fetchPokemonTypes = async () => {
     try {
       const response = await axios.get('https://pokeapi.co/api/v2/type/');
-      types.value = response.data.results.filter((item) => item.name !== 'unknown' && item.name !== 'stellar');
+      types.value = response.data.results.filter((type: Type) => type.name !== 'unknown' && type.name !== 'stellar');
     } catch (error) {
       console.error('Erro ao buscar tipos de Pokémon:', error);
     }

@@ -18,11 +18,11 @@ interface PokemonEvolution {
   species_name: string;
   min_happiness?: number | null;
   evolves_to: EvolutionDetails[];
-  species_id?: number | undefined;  
+  species_id?: number;
   item?: {
     name: string | undefined;
     url: string | undefined;
-    spriteUrl?: string; 
+    spriteUrl?: string;
   };
 }
 
