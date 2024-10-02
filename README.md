@@ -67,4 +67,4 @@ Se preferir executar a aplicação localmente sem Docker, você pode usar Vite p
    Abra o navegador e acesse o seguinte endereço:
 
    ```bash
-   http://localhost:5173
+   http://localhost:8080
