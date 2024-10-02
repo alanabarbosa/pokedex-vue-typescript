@@ -7,7 +7,7 @@
               <PokemonId :style="{ background: pokemon.color}"
               :id="pokemon.id"></PokemonId>
                 <PokemonTitle :title="pokemon.name"></PokemonTitle>
-                <PokemonType :types="pokemon.types || pokemon.type || []"></PokemonType>
+                <PokemonType :types="pokemon.types || []"></PokemonType>
             </div>    
             <div>
               <PokemonImage v-if="pokemon.image"
