@@ -1,7 +1,7 @@
 <template>
   <section class="filters">
     <select @change="handleSelect" v-model="selectedType">
-      <option value="" hidden>Filter By Type</option>
+      <option value="" hidden>{{ $t('filter') }}</option>
       <option v-for="(type, index) in types" 
         :key="index" :value="type.name">
         {{ type.name }}

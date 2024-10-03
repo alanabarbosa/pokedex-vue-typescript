@@ -3,11 +3,11 @@
     <input
         type="text"
         v-model="searchTerm"
-        placeholder="Digite o nome do Pokémon"
+        :placeholder="$t(`searchPokemon`)"
         @input="filterPokemons"
       />
       <p v-if="noResults" class="no-results-message">
-        Pokémon não encontrado.
+        {{ $t('noPokemon') }}
       </p>
   </form>
 </template>
@@ -64,7 +64,6 @@ input {
 }
 
 .no-results-message {
-    color: red;
-    margin-top: 10px;
+    color: #b31312;
   }
 </style>
