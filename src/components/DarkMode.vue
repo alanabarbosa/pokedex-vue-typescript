@@ -44,18 +44,30 @@
 </template>
   
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 
 const darkMode = ref(false);
 
-function changeMode() {
- darkMode.value = !darkMode.value
+onMounted(() => {
+  const storedMode = localStorage.getItem('darkMode');
+  if (storedMode) {
+    darkMode.value = JSON.parse(storedMode);
+    if (darkMode.value) {
+      document.body.classList.add('dark');
+    }
+  }
+});
+
+const changeMode = () => {
+  darkMode.value = !darkMode.value;
+  localStorage.setItem('darkMode', JSON.stringify(darkMode.value));
+
   if (darkMode.value) {
     document.body.classList.add('dark');
   } else {
     document.body.classList.remove('dark');
   }
-}
+};
 </script>
 
   
