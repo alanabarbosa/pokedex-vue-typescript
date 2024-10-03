@@ -9,17 +9,11 @@ interface Pokemon {
   color?: string;
   total: number;
   count: number;
-  abilities?: string[];
 }
 
 interface Type {
   name: string;
   url: string;
-}
-
-
-interface Ability {
-  name: string
 }
 
 export function usePokemons() {
@@ -30,9 +24,6 @@ export function usePokemons() {
   const limit = 50;
   const selectedTypes = ref<string[]>([]);
   const filteredPokemons = ref<Pokemon[]>([]);
-  const allAbilities = ref<string[]>([]);
-  const newArrayAllAbilities = ref<string[]>([]);
-  let pokemonID = ref<number | null>(1);
 
   const fetchPokemons = async (page = 1, selectedType: string | null = null) => {
     try {
@@ -46,19 +37,22 @@ export function usePokemons() {
             const detailsResponse = await axios.get(pokemon.url);
             const speciesUrl = detailsResponse.data.species.url;
             const speciesResponse = await axios.get(speciesUrl);
-            const color = speciesResponse.data.color.name;         
+            const color = speciesResponse.data.color.name;
 
             return {
               name: pokemon.name,
               id: detailsResponse.data.id,
               image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${detailsResponse.data.id}.png`,
               types: detailsResponse.data.types,
-              color: color
+              color: color,
             };
           })
         );
 
+        // Define o total de pokémons filtrados
         totalPokemons.value = filteredPokemons.value.length;
+
+        // Atualiza os pokémons a serem exibidos de acordo com a página
         const offset = (page - 1) * limit;
         pokemons.value = filteredPokemons.value.slice(offset, offset + limit);
       } else {
@@ -98,11 +92,12 @@ export function usePokemons() {
     } catch (error) {
       console.error('Erro ao buscar tipos de Pokémon:', error);
     }
-  }; 
+  };
 
-  onMounted(async () => {
-    await fetchPokemons(currentPage.value);
-  }); 
+  onMounted(() => {
+    fetchPokemons(currentPage.value);
+    fetchPokemonTypes();
+  });
 
   return {
     pokemons,
@@ -111,7 +106,6 @@ export function usePokemons() {
     currentPage,
     types,
     selectedTypes,
-    fetchPokemonTypes,
-    newArrayAllAbilities
+    fetchPokemonTypes
   };
 }
