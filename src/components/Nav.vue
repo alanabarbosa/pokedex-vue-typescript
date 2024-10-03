@@ -56,7 +56,6 @@
     flex-wrap: wrap;
     gap: 20px;
     background: #b31312;
-    flex-wrap: wrap;
     .container {
         display: flex;
         padding: 0 30px;
@@ -64,6 +63,7 @@
         margin: 0 auto;
         width: 100%;
         align-items: center;
+        flex-wrap: wrap
     }
 
     h1 {

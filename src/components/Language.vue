@@ -43,6 +43,9 @@
       width: 200px;
       padding: 10px;
       font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      border: 1px solid #b31312;      
       option {
         cursor: pointer;
       }

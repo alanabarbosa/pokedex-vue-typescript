@@ -23,9 +23,18 @@ export default defineComponent({
     const noResults = ref<boolean>(false); 
 
     const filterPokemons = () => {
-      const filtered = pokemons.value.filter(pokemon =>
-        pokemon.name.toLowerCase().includes(searchTerm.value.toLowerCase())
-      );
+      let filtered = [];
+      
+      if (!isNaN(Number(searchTerm.value))) {
+        filtered = pokemons.value.filter(pokemon =>
+          pokemon.id === Number(searchTerm.value)
+        );
+      } else {
+        filtered = pokemons.value.filter(pokemon =>
+          pokemon.name.toLowerCase().includes(searchTerm.value.toLowerCase())
+        );
+      }
+      
       emit('update:filteredPokemons', filtered);
       noResults.value = filtered.length === 0 && searchTerm.value.trim() !== '';
     };
@@ -38,6 +47,7 @@ export default defineComponent({
   },
 });
 </script>
+
 
 <style scoped lang="scss">
 .search-container {

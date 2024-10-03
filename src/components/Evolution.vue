@@ -1,6 +1,7 @@
 <template>
   <section class="box_evolution slide-top">
     <div v-if="evolution">
+      {{evolution}}
       <TitleSecondary :titleSecondary="$t('evolution_chain')"></TitleSecondary>
       <div>
         <Text v-if="evolution.min_level" :text="`Lvl: ${evolution.min_level}`"></Text>

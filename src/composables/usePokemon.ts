@@ -30,7 +30,6 @@ export function usePokemons() {
       if (selectedType) {    
         const response = await axios.get(`https://pokeapi.co/api/v2/type/${selectedType}`);
         
-        // Armazena todos os pokémons filtrados
         filteredPokemons.value = await Promise.all(
           response.data.pokemon.map(async (pokemonData: { pokemon: { name: string; url: string } }) => {
             const pokemon = pokemonData.pokemon;
@@ -49,10 +48,8 @@ export function usePokemons() {
           })
         );
 
-        // Define o total de pokémons filtrados
         totalPokemons.value = filteredPokemons.value.length;
 
-        // Atualiza os pokémons a serem exibidos de acordo com a página
         const offset = (page - 1) * limit;
         pokemons.value = filteredPokemons.value.slice(offset, offset + limit);
       } else {

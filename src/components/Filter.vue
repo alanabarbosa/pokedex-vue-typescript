@@ -4,11 +4,11 @@
       <option value="" hidden>{{ $t('filter') }}</option>
       <option v-for="(type, index) in types" 
         :key="index" :value="type.name">
-        {{ type.name }}
+        {{ $t(`types.${type.name}`) }}
       </option>
     </select>
     <button v-if="selectedType" @click="removeFilter" class="button-link">
-      Limpar Filtros
+      {{ $t('clean') }}
     </button>
   </section>
 </template>

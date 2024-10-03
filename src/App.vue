@@ -2,7 +2,7 @@
   <div id="app">
     <Nav :favoriteCount="favoriteCount" />
     <main>
-      <div class="container">
+      <div class="container main_content">
         <router-view />
       </div>
     </main>
@@ -101,11 +101,12 @@ body {
         transition:  all .5s;
         background-color: #f9f9f9 !important;
         main {
-          .container {
+          .main_content {
             transition:  all .5s;
-            background-color: #f9f9f9;
+            background-color: #f9f9f9 !important;
             .pokemons {
               .container {
+                background: #f9f9f9;
                 h1,
                 p{
                   color: #000 !important;
