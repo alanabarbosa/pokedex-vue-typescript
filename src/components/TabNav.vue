@@ -81,18 +81,33 @@ export default defineComponent({
             spriteUrl?: string | null; 
           };
           evolves_to: Array<{
-            species_name: string;
-            min_level: number | null;
-            evolves_to: Array<{
-              species_name: string;
-              min_level: number | null;
-              evolves_to: any[];
+            species_name?: string;
+            species_id?: number;
+            min_level?: number | null;
+            min_happiness?: number | null;
+            min_affection?: number | null;
+            item?: {
+              name: string | null;
+              spriteUrl?: string | null;
+            };
+            evolution_details: Array<{
+              min_level?: number | null;
+              time_of_day?: string | null;
+              min_happiness?: number | null;
+              min_affection?: number | null;
+              item?: {
+                name: string | null;
+                spriteUrl?: string | null;
+              };
             }>;
+            evolves_to: any[];
           }>;
+          
         }),
         required: false,
         default: null,
     },
+    
   },
   setup(props) {
     const selectedTab = ref(0);

@@ -1,5 +1,4 @@
-import { createI18n } from 'vue-i18n'; // Corrigido o import
-import { usePokemons } from '../composables/usePokemon'; // Corrija o caminho conforme necessário
+import { createI18n } from 'vue-i18n'; 
 
 const messages = {
     en: {
@@ -993,48 +992,8 @@ const languages = [
   { name: 'Japonês', code: 'ja' },
   { name: 'Espanhol', code: 'es' },
   { name: 'Russo', code: 'ru' },
-  { name: 'Italiano', code: 'ir' },
+  { name: 'Italiano', code: 'it' },
 ];
-
-const updatePokemonTypes = async () => {
-    const { fetchPokemonTypes, types } = usePokemons(); 
-    await fetchPokemonTypes();  
-    const typeNames = types.value.map((type) => type.name);    
-    typeNames.forEach((type) => {
-    messages.en.types[type] = type.charAt(0).toUpperCase() + type.slice(1);      
-        const translatedType = translateTypeToPortuguese(type);
-        messages.pt.types[type] = translatedType; 
-    });
-}; 
-
-
-const translateTypeToPortuguese = (type: string): string => {
-const translations: Record<string, string> = {
-    normal: 'Normal',
-    fighting: 'Lutador',
-    flying: 'Voador',
-    poison: 'Venenoso',
-    ground: 'Terrestre',
-    rock: 'Pedra',
-    bug: 'Inseto',
-    ghost: 'Fantasma',
-    steel: 'Aço',
-    fire: 'Fogo',
-    water: 'Água',
-    grass: 'Grama',
-    electric: 'Elétrico',
-    psychic: 'Psíquico',
-    ice: 'Gelo',
-    dragon: 'Dragão',
-    dark: 'Sombrio',
-    fairy: 'Fada',
-};
-
-return translations[type] || type.charAt(0).toUpperCase() + type.slice(1); 
-};
-
-
-await updatePokemonTypes();
 
 const i18n = createI18n({
   legacy: true,

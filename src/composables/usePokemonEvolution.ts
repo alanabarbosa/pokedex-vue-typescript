@@ -29,6 +29,7 @@ interface PokemonEvolution {
     url: string | undefined;
     spriteUrl?: string;
   };
+  evolution_details?: EvolutionDetails[];
 }
 
 export function usePokemonEvolution(pokemonId: number) {
