@@ -4,7 +4,7 @@
       <PokemonTitle :title="$t('favorite')"></PokemonTitle>
       <div v-if="favoritePokemons.length === 0" 
       class="no_content">
-        <Text text="Não existem pokémons salvos"></Text>
+        <Text :text="$t('no_evolution')"></Text>
       </div>
       <div v-for="pokemon in favoritePokemons" 
       :key="pokemon.id">

@@ -4,6 +4,7 @@
         <router-link to="/">{{ $t('pokemonHome') }}</router-link>
         <Language :languages="languages" 
         @choiceLanguage="changeLanguage"/>
+        <DarkMode></DarkMode>
         <router-link to="/favorites">
           {{ $t('favorites') }} 
             <span class="fav">{{ favoriteCount }}</span>
@@ -18,11 +19,13 @@
   import { useI18n } from 'vue-i18n';
   import { languages } from '../i18n/index'
   import Language from '../components/Language.vue'; 
+  import DarkMode from '../components/DarkMode.vue'; 
   
   export default defineComponent({
     name: 'Nav',
     components: {
-      Language
+      Language,
+      DarkMode
     },
     props: {
       favoriteCount: {

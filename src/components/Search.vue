@@ -64,6 +64,6 @@ input {
 }
 
 .no-results-message {
-    color: #b31312;
+    color: red;
   }
 </style>

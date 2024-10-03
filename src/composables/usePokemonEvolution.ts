@@ -42,8 +42,6 @@ export function usePokemonEvolution(pokemonId: number) {
       const evolutionResponse = await axios.get(evolutionChainUrl);
       const chain = evolutionResponse.data.chain;
 
-      console.log("chain", chain)
-
       const getSpeciesId = (speciesUrl: string): number => {
         return Number(speciesUrl.split('/').slice(-2, -1)[0]);
       };

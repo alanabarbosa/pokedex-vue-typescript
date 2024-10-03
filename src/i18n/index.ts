@@ -12,7 +12,8 @@ const messages = {
         pokemonHome: "Pokédex Home",
         favorites: "Favorites",
         other: "Other",
-        no_evolution: "No evolution data available.",
+        no_evolution: "No evolution data available",
+        no_pokemon_save: "There are no saved Pokémon",
         time_of_day: "Time of day",
         types: {
             normal: 'Normal',
@@ -187,7 +188,7 @@ const messages = {
     pt: {
         welcome: "Bem-vindo à Pokédex",
         pokemonDetails: "Detalhes do Pokémon",
-        favorite: "Favorito",
+        favorite: "Meus Favoritos",
         showDetails: "Exibir Detalhes",
         noPokemon: "Esse Pokémon não existe",
         pokemonHome: "Pokédex Inicio",
@@ -196,6 +197,7 @@ const messages = {
         searchPokemon: "Digite o nome do pokémon",
         other: "Outros",
         no_evolution: "Sem evoluções disponíveis",
+        no_pokemon_save: "Não existem pokémons salvos",
         time_of_day: "Hora do dia",
         min_affection: "Carinho Minimo",
         types: {
@@ -379,6 +381,7 @@ const messages = {
         favorites: "お気に入り",
         other: "その他",
         no_evolution: "進化データはありません",
+        no_pokemon_save: "保存されているポケモンはありません",
         time_of_day: "時刻",
         types: {
             normal: 'ノーマル',
@@ -560,6 +563,7 @@ const messages = {
     pokemonHome: "Inicio de la Pokédex",
     favorites: "Favoritos",
     other: "Otros",
+    no_pokemon_save: "No hay Pokémon guardados",
     no_evolution: "No hay datos de evolución",
     time_of_day: "Hora del día",
     types: {
@@ -742,6 +746,7 @@ const messages = {
         pokemonHome: "Дом покедекса",
         favorites: "Избранное",
         other: "Другие",
+        no_pokemon_save: "Нет сохраненных покемонов",
         no_evolution: "Нет данных о эволюции",
         time_of_day: "Время суток",
         types: {
@@ -966,6 +971,7 @@ const messages = {
     about: "Info",
     stats: "Statistiche",
     evolution: "Evoluzione",
+    no_pokemon_save: "Non ci sono Pokémon salvati",
     stats_name: {
         hp: "Punti Salute",
         attack: "Attacco",
