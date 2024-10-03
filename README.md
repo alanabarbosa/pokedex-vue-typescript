@@ -58,7 +58,7 @@ Se preferir executar a aplicação localmente sem Docker, você pode usar Vite p
    npm install
 
 2. **Iniciar a aplicação em modo de desenvolvimento:**
-  Após iniciar o servidor de desenvolvimento, abra o navegador e acesse o seguinte endereço:
+  Para iniciar a aplicação em modo de desenvolvimento, rode o seguinte comando:
 
    ```bash
    npm run dev
