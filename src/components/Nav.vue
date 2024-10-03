@@ -8,7 +8,8 @@
           {{ $t('favorites') }} 
             <span class="fav">{{ favoriteCount }}</span>
         </router-link>
-      </div><h1>{{ t('welcome') }}</h1>  
+      </div>
+      <h1>{{ t('welcome') }}</h1>  
     </nav>
   </template>
   
@@ -47,13 +48,24 @@
   <style scoped>
   nav {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
     gap: 20px;
     background: #b31312;
     flex-wrap: wrap;
     .container {
         display: flex;
         padding: 0 30px;
-        justify-content: space-between
+        justify-content: space-between;
+        margin: 0 auto;
+        width: 100%;
+        align-items: center;
+    }
+
+    h1 {
+      width: 100%;
+      padding-bottom: 10px;
     }
   
     a {

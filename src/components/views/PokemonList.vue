@@ -17,7 +17,7 @@
         </div>     
             <TabNav 
             :color="pokemon.types && pokemon.types[0] ? pokemon.types[0].type.name : ''"
-            :tabs="['about', 'stats', 'evolution']"
+            :tabs="[$t('about'), $t('stats') , $t('evolution')]"
             :abilities="pokemon.abilities"
             :height="pokemon.height"
             :weight="pokemon.weight"

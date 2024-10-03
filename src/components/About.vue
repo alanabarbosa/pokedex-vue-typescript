@@ -2,24 +2,24 @@
 <template>
     <section class="about slide-top">
       <div class="abilities">
-        <TitleSecondary titleSecondary="Abilities:"></TitleSecondary>
-        <div v-for="(item) in abilities" :key="item.ability.name">
-          <Text :text="item.ability.name"></Text>
-        </div>
+      <TitleSecondary :titleSecondary="$t('abilities_title')"></TitleSecondary>
+      <div v-for="(item) in abilities" :key="item.ability.name">
+        <Text :text="$t(`abilities.${item.ability.name}`)"></Text>
       </div>
+  </div>
 
       <div class="height">
-        <TitleSecondary titleSecondary="Height:"></TitleSecondary>
-        <Text :text="`${height.toString()}cm`"></Text>
+        <TitleSecondary :titleSecondary="$t('height_title')"></TitleSecondary>
+        <Text :text="$t(`${height.toString()}`)  + 'cm'"></Text>
       </div>
 
       <div class="weight">
-        <TitleSecondary titleSecondary="Weight:"></TitleSecondary>
+        <TitleSecondary :titleSecondary="$t('weight_title')"></TitleSecondary>
         <Text :text="`${weight.toString()}kg`"></Text>
       </div>
   
       <div class="types">
-        <TitleSecondary titleSecondary="Type:"></TitleSecondary>
+        <TitleSecondary :titleSecondary="$t('type')"></TitleSecondary>
         <PokemonType :types="types || []"></PokemonType>
       </div>
     </section>

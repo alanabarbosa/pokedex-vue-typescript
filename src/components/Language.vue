@@ -39,11 +39,13 @@
   
   <style scoped lang="scss">
   .languages {
-    width: 100%;
     select {
       width: 200px;
       padding: 10px;
       font-size: 16px;
+      option {
+        cursor: pointer;
+      }
     }
   }
   </style>

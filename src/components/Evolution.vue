@@ -1,12 +1,10 @@
 <template>
   <section class="box_evolution slide-top">
-    <TitleSecondary titleSecondary="Evolution Chain"></TitleSecondary>
+    <TitleSecondary :titleSecondary="$t('evolution_chain')"></TitleSecondary>
     <div v-if="evolution">
       <div>
         <Text v-if="evolution.min_level" :text="`Lvl: ${evolution.min_level}`"></Text>
-      </div>
-
-  
+      </div>  
       <div v-for="(nextEvolution, index) in evolution.evolves_to" :key="index" class="evolution-stage">
         <div class="evolution">
           <figure>        
@@ -19,7 +17,7 @@
           
           <strong v-if="nextEvolution" class="level_up">
             <Text v-if="nextEvolution.min_level" :text="`Lvl: ${nextEvolution.min_level}`"></Text>
-            <Text v-if="nextEvolution.min_happiness" :text="`Happiness: ${nextEvolution.min_happiness}`"></Text>
+            <Text v-if="nextEvolution.min_happiness" :text="$t('min_happiness')"></Text>
                 
             <Image v-if="nextEvolution.item?.spriteUrl"
             :image="nextEvolution.item.spriteUrl"
@@ -40,13 +38,14 @@
         <div v-for="(furtherEvolution, idx) in nextEvolution.evolves_to" :key="idx" class="evolution">
           <strong v-if="furtherEvolution" class="level_up">       
             <Text v-if="furtherEvolution.min_level" :text="`Lvl: ${furtherEvolution.min_level}`"></Text>
-            <Text v-if="furtherEvolution.min_happiness" :text="`Happiness: ${furtherEvolution.min_happiness}`"></Text>  
+            <Text v-if="furtherEvolution.min_happiness" :text="$t('happiness')"></Text>  
             
             <Image v-if="furtherEvolution.item?.spriteUrl"
             :image="furtherEvolution.item.spriteUrl"
             :alt="furtherEvolution.item?.name || ''"
             width="28px" height="33px" class="item_img"></Image>
-            <Text v-if="furtherEvolution.item?.name" :text="furtherEvolution.item.name"></Text>
+            
+            <Text v-if="furtherEvolution.item?.name" :text="$t('moon_stone')"></Text>
           </strong>
 
           <figure>

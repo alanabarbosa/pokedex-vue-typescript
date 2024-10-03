@@ -1,22 +1,21 @@
-<!-- Stats.vue -->
 <template>
-    <section v-for="(stat, index) in stats" :key="index" class="stats slide-top">
-      <Text class="stat_name" :text="stat.stat.name"></Text>
-      <Text :text="`${stat.base_stat}%`"></Text>
-      <div class="stat-bar-box">
-        <div class="stat-bar">
-          <div
-            class="stat-bar-inner"
-            :style="{ width: stat.base_stat + '%', backgroundColor: 'red' }"
-          ></div>
-        </div>
+  <section v-if="stats && stats.length" v-for="(stat, index) in stats" :key="index" class="stats slide-top">
+    <Text class="stat_name" :text="$t(`stats_name.${stat.stat.name}`)"></Text>
+    <Text :text="`${stat.base_stat}%`"></Text>
+    <div class="stat-bar-box">
+      <div class="stat-bar">
+        <div
+          class="stat-bar-inner"
+          :style="{ width: stat.base_stat + '%', backgroundColor: 'red' }"
+        ></div>
       </div>
-    </section>
-  </template>
+    </div>
+  </section>
+</template>
   
   <script lang="ts">
   import { defineComponent } from 'vue';
-  import Text from '../components/PokemonText.vue'
+  import Text from '../components/PokemonText.vue';
   
   export default defineComponent({
     components: {
